@@ -5,6 +5,7 @@
 # author_profile: true
 
 title: "Tutorials"
-layout: single
+layout: categories
 permalink: /tutorials/
+author_profile: false
 ---
