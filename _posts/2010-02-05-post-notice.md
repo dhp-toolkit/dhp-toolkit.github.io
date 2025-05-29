@@ -1,7 +1,7 @@
 ---
 title: "Post: Notice"
 categories:
-  - Avanced
+  - Advanced
 tags:
   - Post Formats
   - notice
