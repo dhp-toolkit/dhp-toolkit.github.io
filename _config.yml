@@ -80,6 +80,10 @@ footer:
   #   - label: "Instagram"
   #     icon: "fab fa-fw fa-instagram"
   #     url: "https://instagram.com/"
+  
+# Hide the RSS feed icon in header & footer
+atom_feed:
+  hide: true
 
 defaults:
   # _posts
