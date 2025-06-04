@@ -364,7 +364,22 @@ If you switch to another Jekyll theme later, just confirm which front-matter fie
 
 ---
 
-## 10. Collaborating with Others
+## 12. How to Delete a Blog Post
+
+To remove a post from your site, you need to delete its Markdown file and make sure any references to it (such as archive listings or navigation entries) are also cleaned up. For Academic Pages, follow these steps:
+
+1. Locate the **.md** file you want to delete in your project repository in **VS Code**
+2. Right-click on the file and choose **Delete**
+3. Commit & Push your Changes
+* Switch back to GitHub Desktop: you’ll see the deleted file listed under **“Changes”**.
+* You can enter a commit message like “Remove old blog post,” click Commit to main, then click **Push origin**.
+4. Verify the changes on your live site
+
+
+> **Note**: In the Academic Pages template we are using, deleting the file following the steps above is sufficient, and no further editing is needed. However, depending on the template you are using, there might be a case where the file you deleted is referenced in any navigation file (e.g., _data/navigation.yml). In that case, you need to remove its entry there as well.
+
+---
+## 11. Collaborating with Others
 
 Even without a command line, you can:
 
@@ -376,7 +391,7 @@ Even without a command line, you can:
 
 ---
 
-## 11. Deleting Your Repository
+## 12. Deleting Your Repository
 
 If you no longer want to keep your website live or want to start over, you can delete your GitHub repository. Here’s how:
 1. Go to github.com and navigate to your repository page.
@@ -389,7 +404,7 @@ If you no longer want to keep your website live or want to start over, you can d
 
 ---
 
-## 12. Troubleshooting & Tips
+## 13. Troubleshooting & Tips
 
 | Issue | Likely Cause | Fix |
 | ----------- | ----------- | ----------- |
@@ -403,7 +418,7 @@ If you no longer want to keep your website live or want to start over, you can d
 
 ---
 
-## 12. Further Resources
+## 14. Further Resources
 
 * GitHub Docs – Pages: [https://docs.github.com/pages](https://docs.github.com/pages){:target="_blank" rel="noopener"}
 * GitHub Desktop Guides: [https://docs.github.com/desktop](https://docs.github.com/desktop){:target="_blank" rel="noopener"}
