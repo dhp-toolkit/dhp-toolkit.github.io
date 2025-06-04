@@ -30,7 +30,7 @@ You can also ask general questions like:
 GitHub is more than a programmers’ playground: it’s a free, version‑controlled, and openly accessible platform for storing any text‑based project. For historians, that means:
 Keeping a transparent record of revisions to research notes, teaching materials, or digital exhibits.
 Collaborating smoothly with co‑authors or students.
-Publishing a professional website at your‑username.github.io with minimal setup.
+Publishing a professional website at ```your‑username.github.io``` with minimal setup.
 
 ---
 
@@ -70,11 +70,11 @@ Publishing a professional website at your‑username.github.io with minimal setu
 
 **What is a repository?** A repository (or repo) is a container or folder for your project. It holds all the files, images, and code your site needs.
 
-**How is a website linked to a repository?** GitHub Pages automatically turns the contents of a repository named your-username.github.io into a live website at that exact URL. The name must match your GitHub username exactly.
+**How is a website linked to a repository?** GitHub Pages automatically turns the contents of a repository named ```your-username.github.io``` into a live website at that exact URL. The name must match your GitHub username exactly.
 
-GitHub allows one website repository per user at the your-username.github.io address. You can still make unlimited project sites under different names, but for your homepage, only one repo can be tied to that web address.
+GitHub allows one website repository per user at the ```your-username.github.io``` address. You can still make unlimited project sites under different names, but for your homepage, only one repo can be tied to that web address.
 
-**What to do if I already have a repository named your-username.github.io?** If you already have a repository named your-username.github.io that has a corresponding website published via GitHub Pages, what you can do is:
+**What to do if I already have a repository named ````your-username.github.io```?** If you already have a repository named ```your-username.github.io``` that has a corresponding website published via GitHub Pages, what you can do is:
 
 **Option 1: Delete the Existing Repository**
 * If you want to start fresh, you can delete the current repository and create a new one using a different template.
@@ -87,7 +87,7 @@ GitHub allows one website repository per user at the your-username.github.io add
 * Your project site will be published at: ```https://your-username.github.io/digital-archive-project/```
 
 ### Step 1. Choose a Template Repository
-1. In a browser, open the template repository you want to use. For example, one of the templates you can use is the  Academic Pages template available at https://github.com/academicpages/academicpages.github.io .
+1. In a browser, open the template repository you want to use. For example, one of the templates you can use is the  Academic Pages template available at [https://github.com/academicpages/academicpages.github.io](https://github.com/academicpages/academicpages.github.io) .
 2. Confirm it displays a green Use this template button (templates are specially flagged by their authors).
 
 !["Use this template" button](/assets/images/tutorial-github-4.1.png)
@@ -126,10 +126,15 @@ Once you've cloned your repository with GitHub Desktop, all the files that make 
 While every template is slightly different, most **Jekyll‑based templates** follow a familiar structure. After cloning your chosen template, you’ll typically see in your local repository a structure similar to:
 
 ─ _config.yml            ← Global settings for your site (title, author, etc.)
+
 ─ _posts/                ← Blog posts, each in its own .md file
+
 ─ pages/ or _pages/      ← Main site pages (About, CV, etc.)
+
 ─ assets/ or images/     ← Media like images and PDFs
+
 ─ index.md or index.html ← Homepage content
+
 ─ README.md              ← Notes about your project (not part of website)
 
 ### Which Folders To Explore
@@ -160,7 +165,7 @@ Before editing anything, it’s helpful to publish the website once and see what
 
 > **Note:** If the **Save** button is inactive or if GitHub Pages is already enabled for a branch, it means your site is likely already configured to deploy from that branch. You can verify this by checking the "GitHub Pages" section for a live site link.
 
-Wait 1–2 minutes. A green banner will show saying your site will be live at https://your‑username.github.io/. 
+Wait 1–2 minutes. A green banner will show saying your site will be live at ```https://your‑username.github.io/```. 
 
 Every time you **push** new commits, GitHub automatically rebuilds and publishes the site.
 
@@ -171,7 +176,7 @@ Many templates, including the **Academic Pages** template we’re using, use a t
 
 **Step-by-Step Fix**
 1. Give GitHub Actions Permission to Publish
-* On your forked repository page, click Settings (top of the page)
+* On your project repository page on GitHub, click Settings (top of the page)
 * In the left menu, click Actions → General
 * Scroll down to the section called Workflow permissions
 * Select ```Read and write permissions```. Also check the box that says **“Allow GitHub Actions to create and approve pull requests”** (if you see it)
@@ -191,7 +196,7 @@ Now that permissions are fixed, you need to trigger the **GitHub Actions** tool 
 
 
 ### Step 2. Compare Website to Markdown Files
-* Open your published site in a browser on the link https://your‑username.github.io/.
+* Open your published site in a browser on the link ```https://your‑username.github.io/```.
 * Click on a page like “About” or “Home.”
 * Go back to your local folder on your computer and find the matching ```.md``` file (for example, ```about.md``` or ```index.md```).
 * Open that file in your editor and compare the visible text on the site to the text in the file.
@@ -259,13 +264,13 @@ Either approach works—use **underlines** if you only need H1/H2, or **#** if y
 * Files in ```_posts/``` → blog posts, listed by date
 
 
-## How to Edit an Existing Page
+### How to Edit an Existing Page
 
 In most **Jekyll themes**, you can edit the website content by editing corresponding ```.md ```(Markdown) files and see your change on the live site. However, with the **Academic Pages** template used in this tutorial, you also need to update ```url``` and ```baseurl``` in ```_config.yml``` as these are set to point to the original theme author’s site or break links. 
 
 To update them to point to your website’s URL take the following steps:
-1. Open your local _config.yml file and make sure these two updates these lines to match your repository’s address:
-* ```url:``` Update it with "https://your-username.github.io" or if you already have some other page hosted on Github then use "https://your-username.github.io/[Your Repo Name]"
+1. Open your local _config.yml file and make sure to update these two lines to match your repository’s address:
+* ```url:``` Update it with **"https://your-username.github.io"** or if you already have some other page hosted on Github then use "https://your-username.github.io/[Your Repo Name]"
 * ```Repository:``` Update it with your-username.github.io
 2. Save changes to ```_config.yml``` file 
 
@@ -310,7 +315,7 @@ After committing, click **Push origin** (top toolbar). Your commits travel to th
 * Navigate to your **GitHub repository** and reload the page.
 * Your latest commit should be displayed under the Code button. 
 * If an orange dot is displayed next to your commit, it means the changes you requested are still *Pending* (screenshot attached). In this case, you need to wait for a few seconds and refresh it until you get a green tick next to your commit (screenshot attached), which signifies a successful build.
-* Open your published site in a browser on the link https://your‑username.github.io/. It might take a few minutes until the changes are reflected on the website as well.
+* Open your published site in a browser on the link ```https://your‑username.github.io/```. It might take a few minutes until the changes are reflected on the website as well.
 
 Pending Commit:
 ![Screenshot: Pending Commit](/assets/images/tutorial-github-8.3-pending.png)
@@ -319,11 +324,12 @@ Successful Commit:
 ![Screenshot: Successful Commit](/assets/images/tutorial-github-8.3-success.png)
 
 Note:
-If there’s a red X mark displayed next to your commit, it means there was a build error. Ideally, if you only modify Markdown files, you shouldn’t face this problem, but if you still get this build error, you can try to resolve it using Generative AI such as ChatGPT by pasting your error message (which you can obtain by clicking on that commit and nvaigating to the error message)
+If there’s a red X mark displayed next to your commit, it means there was a build error. Ideally, if you only modify Markdown files, you shouldn’t face this problem, but if you still get this build error, you can try to resolve it using Generative AI such as ChatGPT by pasting your error message (which you can obtain by clicking on that commit and navigating to the error message)
 
 ### Step 4. View History or Revert
 * Use the **History** tab in GitHub Desktop to browse old commits.
-* Right‑click a file → **Discard changes** to undo **before committing**. After committing, changes are saved — but you can undo the most recent commit as long as it hasn't been pushed online yet.
+* Right‑click a file on Github Desktop → click **Discard changes** to undo **before committing**. After committing, changes are saved — but you can undo the most recent commit as long as it hasn't been pushed online yet. If it was already pushed, simply edit the file again with the changes you want to make, then save and commit those new changes.
+
 
 
 ## 9. How to Create a New Blog Post
@@ -397,7 +403,7 @@ If you no longer want to keep your website live or want to start over, you can d
 
 ## 12. Further Resources
 
-* GitHub Docs – Pages: [https://docs.github.com/pages](https://docs.github.com/pages)
-* GitHub Desktop Guides: [https://docs.github.com/desktop](https://docs.github.com/desktop)
-* Markdown Guide: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)
-* Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/) (live demo & docs)
+* GitHub Docs – Pages: [https://docs.github.com/pages](https://docs.github.com/pages){:target="_blank" rel="noopener"}
+* GitHub Desktop Guides: [https://docs.github.com/desktop](https://docs.github.com/desktop){:target="_blank" rel="noopener"}
+* Markdown Guide: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/){:target="_blank" rel="noopener"}
+* Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/) (live demo & docs){:target="_blank" rel="noopener"}
