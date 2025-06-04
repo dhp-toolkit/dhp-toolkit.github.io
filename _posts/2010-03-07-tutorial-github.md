@@ -7,7 +7,7 @@ tags:
   - Post Formats
 # link: https://github.com
 toc: true
-toc_sticky: false
+toc_sticky: true
 toc_label: "Table of Contents"
 ---
 
