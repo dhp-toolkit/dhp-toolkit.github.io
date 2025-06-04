@@ -62,9 +62,9 @@ Publishing a professional website at ```your‑username.github.io``` with minima
 1. Go to [code.visualstudio.com/download](https://code.visualstudio.com/download){:target="_blank" rel="noopener"} and download it for your OS via the .zip method. The .zip install is good for beginners, while advanced users can use other installation methods like the command line.
 2. Open the downloaded zip file and follow the instructions.
 
-![GitHub “Sign up” page](/assets/images/tutorial-github-3.1.png)
+![GitHub “Sign up” page](/assets/images/github/tutorial-github-3.1.png)
 
-![GitHub Desktop first‑run window](/assets/images/tutorial-github-3.2.png)
+![GitHub Desktop first‑run window](/assets/images/github/tutorial-github-3.2.png)
 
 
 ---
@@ -92,7 +92,7 @@ GitHub allows one website repository per user at the ```your-username.github.io`
 1. In a browser, open the template repository you want to use. For example, one of the templates you can use is the  Academic Pages template available at [https://github.com/academicpages/academicpages.github.io](https://github.com/academicpages/academicpages.github.io){:target="_blank" rel="noopener"} .
 2. Confirm it displays a green Use this template button (templates are specially flagged by their authors).
 
-!["Use this template" button](/assets/images/tutorial-github-4.1.png)
+!["Use this template" button](/assets/images/github/tutorial-github-4.1.png)
 
 You can look for more Jekyll-based templates here:
 * [https://github.com/topics/jekyll-theme](https://github.com/topics/jekyll-theme){:target="_blank" rel="noopener"}
@@ -110,7 +110,7 @@ You can look for more Jekyll-based templates here:
 2. Choose a local folder where you’ll keep website files.
 3. Click **Clone**.
 
-![GitHub Desktop “Clone a repository” dialog](/assets/images/tutorial-github-4.2.png)
+![GitHub Desktop “Clone a repository” dialog](/assets/images/github/tutorial-github-4.2.png)
 
 ---
 
@@ -152,7 +152,7 @@ If your goal is just to update your website text and content, you’ll only be e
 You might need to work with folders like ```assets/``` or ```images/``` as well, as this is where images or uploaded files go.
 Don’t worry if the folders look slightly different depending on your template. Focus only on the folders containing .md files and you’ll be fine!
 
-![Folders containing Markdown files or image/pdfs when working with the Academic Pages template](/assets/images/tutorial-github-5.1.png)
+![Folders containing Markdown files or image/pdfs when working with the Academic Pages template](/assets/images/github/tutorial-github-5.1.png)
 
 ---
 
@@ -218,7 +218,7 @@ Each Markdown file has two parts:
 Here’s an example of an ```about.md file``` from the **Academic Pages** template used: 
 
 
-![about.md file from the **Academic Pages** template](/assets/images/tutorial-github-7.1.png)
+![about.md file from the **Academic Pages** template](/assets/images/github/tutorial-github-7.1.png)
 
 Here, the **front-matter** section is:
 
@@ -303,14 +303,14 @@ Git takes snapshots (commits) of your project over time, so you can revert mista
 5. Click **Commit to main**.
 
 
-![How Changes are displayed on Github Desktop](/assets/images/tutorial-github-8.1.png)
+![How Changes are displayed on Github Desktop](/assets/images/github/tutorial-github-8.1.png)
 
 
 ### Step 2. Push (Publish) to GitHub.com
 
 After committing, click **Push origin** (top toolbar). Your commits travel to the online copy of the repo.
 
-![Push origin button](/assets/images/tutorial-github-8.1.png)
+![Push origin button](/assets/images/github/tutorial-github-8.1.png)
 
 ### Step 3. Check If Changes Have Been Reflected on the Website
 
@@ -320,10 +320,10 @@ After committing, click **Push origin** (top toolbar). Your commits travel to th
 * Open your published site in a browser on the link ```https://your‑username.github.io/```. It might take a few minutes until the changes are reflected on the website as well.
 
 Pending Commit:
-![Screenshot: Pending Commit](/assets/images/tutorial-github-8.3-pending.png)
+![Screenshot: Pending Commit](/assets/images/github/tutorial-github-8.3-pending.png)
 
 Successful Commit:
-![Screenshot: Successful Commit](/assets/images/tutorial-github-8.3-success.png)
+![Screenshot: Successful Commit](/assets/images/github/tutorial-github-8.3-success.png)
 
 Note:
 If there’s a red X mark displayed next to your commit, it means there was a build error. Ideally, if you only modify Markdown files, you shouldn’t face this problem, but if you still get this build error, you can try to resolve it using Generative AI such as ChatGPT by pasting your error message (which you can obtain by clicking on that commit and navigating to the error message)
