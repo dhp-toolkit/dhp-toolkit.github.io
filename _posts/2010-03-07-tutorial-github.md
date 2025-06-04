@@ -43,21 +43,21 @@ Publishing a professional website at ```your‑username.github.io``` with minima
 | A ready‑made template on GitHub (e.g. Jekyll) | Saves time—most styling & navigation are done for you. |
 | Text editor (VS Code, Sublime, Atom, etc.) | Edits Markdown files locally. |
 
-> **Tip for classrooms:** Students can sign up with an academic email and request the free [GitHub Education](https://education.github.com/pack) benefits bundle, which includes access to a wide range of developer tools and resources.
+> **Tip for classrooms:** Students can sign up with an academic email and request the free [GitHub Education](https://education.github.com/pack){:target="_blank" rel="noopener"} benefits bundle, which includes access to a wide range of developer tools and resources.
 
 ## 3.  Setting up GitHub Account, GitHub Desktop  & Visual Studio Code
 
 ### Step 1. Sign Up for GitHub
-1. Navigate to [github.com](https://github.com/) → Sign up.
+1. Navigate to [github.com](https://github.com/){:target="_blank" rel="noopener"} → Sign up.
 2. Choose a username (this will be visible in your site URL later).
 3. Verify your email & complete the short survey.
 
 ### Step 2. Download GitHub Desktop
-1. Go to [desktop.github.com](https://desktop.github.com/) and download for your OS.
+1. Go to [desktop.github.com](https://desktop.github.com/){:target="_blank" rel="noopener"} and download for your OS.
 2. Install and sign in with the account you just created.
 
 ### Step 3. Download MS Visual Studio Code
-1. Go to [code.visualstudio.com/download](https://code.visualstudio.com/download) and download it for your OS via the .zip method. The .zip install is good for beginners, while advanced users can use other installation methods like the command line.
+1. Go to [code.visualstudio.com/download](https://code.visualstudio.com/download){:target="_blank" rel="noopener"} and download it for your OS via the .zip method. The .zip install is good for beginners, while advanced users can use other installation methods like the command line.
 2. Open the downloaded zip file and follow the instructions.
 
 ![GitHub “Sign up” page](/assets/images/tutorial-github-3.1.png)
@@ -87,15 +87,15 @@ GitHub allows one website repository per user at the ```your-username.github.io`
 * Your project site will be published at: ```https://your-username.github.io/digital-archive-project/```
 
 ### Step 1. Choose a Template Repository
-1. In a browser, open the template repository you want to use. For example, one of the templates you can use is the  Academic Pages template available at [https://github.com/academicpages/academicpages.github.io](https://github.com/academicpages/academicpages.github.io) .
+1. In a browser, open the template repository you want to use. For example, one of the templates you can use is the  Academic Pages template available at [https://github.com/academicpages/academicpages.github.io](https://github.com/academicpages/academicpages.github.io){:target="_blank" rel="noopener"} .
 2. Confirm it displays a green Use this template button (templates are specially flagged by their authors).
 
 !["Use this template" button](/assets/images/tutorial-github-4.1.png)
 
 You can look for more Jekyll-based templates here:
-* [https://github.com/topics/jekyll-theme](https://github.com/topics/jekyll-theme)
-* [https://jamstackthemes.dev/ssg/jekyll/](https://jamstackthemes.dev/ssg/jekyll/)
-* [https://jekyll-themes.com/](https://jekyll-themes.com/)
+* [https://github.com/topics/jekyll-theme](https://github.com/topics/jekyll-theme){:target="_blank" rel="noopener"}
+* [https://jamstackthemes.dev/ssg/jekyll/](https://jamstackthemes.dev/ssg/jekyll/){:target="_blank" rel="noopener"}
+* [https://jekyll-themes.com/](https://jekyll-themes.com/){:target="_blank" rel="noopener"}
 
 ### Step 2. Generate Your New Repository
 1. On the template repository page, click **Use this template → Create a new repository**.
@@ -271,7 +271,7 @@ In most **Jekyll themes**, you can edit the website content by editing correspon
 To update them to point to your website’s URL take the following steps:
 1. Open your local _config.yml file and make sure to update these two lines to match your repository’s address:
 * ```url:``` Update it with **"https://your-username.github.io"** or if you already have some other page hosted on Github then use "https://your-username.github.io/[Your Repo Name]"
-* ```Repository:``` Update it with your-username.github.io
+* ```Repository:``` Update it with **your-username.github.io**
 2. Save changes to ```_config.yml``` file 
 
 Now that our URLs are configured correctly, you can edit contents of ```.md``` files. To do that:
@@ -279,7 +279,7 @@ Now that our URLs are configured correctly, you can edit contents of ```.md``` f
 2. Make an edit to the text, i.e. adjust the **title** or the **body** text.
 3. Save the file and go back to GitHub Desktop — you’ll see the file marked as “modified.”
 
-For a cheat sheet of Markdown formatting, see: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)
+For a cheat sheet of Markdown formatting, see: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/){:target="_blank" rel="noopener"}
 
 Now that you know how to safely find and edit your site’s content, let’s learn how to track and publish changes.
 
@@ -406,4 +406,4 @@ If you no longer want to keep your website live or want to start over, you can d
 * GitHub Docs – Pages: [https://docs.github.com/pages](https://docs.github.com/pages){:target="_blank" rel="noopener"}
 * GitHub Desktop Guides: [https://docs.github.com/desktop](https://docs.github.com/desktop){:target="_blank" rel="noopener"}
 * Markdown Guide: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/){:target="_blank" rel="noopener"}
-* Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/) (live demo & docs){:target="_blank" rel="noopener"}
+* Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/)(live demo & docs){:target="_blank" rel="noopener"}
