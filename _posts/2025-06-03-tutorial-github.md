@@ -424,3 +424,5 @@ If you no longer want to keep your website live or want to start over, you can d
 * GitHub Desktop Guides: [https://docs.github.com/desktop](https://docs.github.com/desktop){:target="_blank" rel="noopener"}
 * Markdown Guide: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/){:target="_blank" rel="noopener"}
 * Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/){:target="_blank" rel="noopener"}(live demo & docs)
+* Jekyll Docs: [https://jekyllrb.com/docs/home](https://jekyllrb.com/docs/home){:target="_blank" rel="noopener"}
+* Jekyll Talk where you can ask your Jekyll-related questions: [https://talk.jekyllrb.com/](https://talk.jekyllrb.com/){:target="_blank" rel="noopener"}
