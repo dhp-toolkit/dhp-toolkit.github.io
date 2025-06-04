@@ -128,15 +128,15 @@ Once you've cloned your repository with GitHub Desktop, all the files that make 
 While every template is slightly different, most **Jekyll‑based templates** follow a familiar structure. After cloning your chosen template, you’ll typically see in your local repository a structure similar to:
 
 ─ _config.yml            ← Global settings for your site (title, author, etc.)
-|
+
 ─ _posts/                ← Blog posts, each in its own .md file
-|
+
 ─ pages/ or _pages/      ← Main site pages (About, CV, etc.)
-|
+
 ─ assets/ or images/     ← Media like images and PDFs
-|
+
 ─ index.md or index.html ← Homepage content
-|
+
 ─ README.md              ← Notes about your project
 
 ### Which Folders To Explore
