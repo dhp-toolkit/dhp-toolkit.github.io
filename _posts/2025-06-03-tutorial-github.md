@@ -337,7 +337,7 @@ If there’s a red X mark displayed next to your commit, it means there was a bu
 ## 9. How to Create a New Blog Post
 1. Navigate to ```_posts/``` folder in your directory.
 2. Create a new Markdown file by clicking **File → New Text file**. 
-You can create a file called, for example: ```2025-06-02-blog-post-sample.md``` (If you’re on macOS/Windows: **right-click → New Text Document**, then **rename**.)
+Make sure to name the file according to the ```YEAR-MONTH-DAY-title.md``` format. You can create a file called, for example: ```2025-06-02-blog-post-sample.md```(If you’re on macOS/Windows: **right-click → New Text Document**, then **rename**.)
 3. Add the required front matter at the very top of that file 
 Your **front matter** should follow the same format as in the other markdown files for posts. Make sure to edit ```date``` and ```permalink``` fields according to the current date.
 
