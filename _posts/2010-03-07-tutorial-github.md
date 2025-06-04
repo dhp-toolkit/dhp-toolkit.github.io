@@ -406,4 +406,4 @@ If you no longer want to keep your website live or want to start over, you can d
 * GitHub Docs – Pages: [https://docs.github.com/pages](https://docs.github.com/pages){:target="_blank" rel="noopener"}
 * GitHub Desktop Guides: [https://docs.github.com/desktop](https://docs.github.com/desktop){:target="_blank" rel="noopener"}
 * Markdown Guide: [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/){:target="_blank" rel="noopener"}
-* Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/)(live demo & docs){:target="_blank" rel="noopener"}
+* Minimal Mistakes theme: [https://mmistakes.github.io/minimal-mistakes/](https://mmistakes.github.io/minimal-mistakes/){:target="_blank" rel="noopener"}(live demo & docs)
