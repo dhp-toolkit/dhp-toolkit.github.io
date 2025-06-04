@@ -7,6 +7,8 @@ tags:
   - Post Formats
 # link: https://github.com
 toc: true
+toc_sticky: false
+toc_label: "Table of Contents"
 ---
 
 A hands‑on, beginner‑friendly guide to creating and publishing a personal or project website by cloning an existing template on GitHub, editing content in Markdown, and using GitHub Desktop to track and publish your work. No command‑line or coding experience required.
