@@ -84,22 +84,22 @@ Anaconda is a free package that installs Python, Jupyter Notebook, and dozens of
 * Type: ```conda --version```
 * You should see something like ```conda x.x.x``` if the installation was successful.
 
-![Terminal window](/assets/images/github/tutorial-jupyter-2.1.png)
+![Terminal window](/assets/images/jupyter/tutorial-jupyter-2.1.png)
 
 ### 2.2 Launch Jupyter Notebook
 
 1. On Windows or macOS, open **Anaconda Navigator** from your **Start Menu** (Windows) or **Applications folder** (macOS).
 
-![Anaconda Navigator Main Page](/assets/images/github/tutorial-jupyter-2.2.png)
+![Anaconda Navigator Main Page](/assets/images/jupyter/tutorial-jupyter-2.2.png)
 
 2. In Anaconda Navigator, locate **Jupyter Notebook** and click the **Launch** button.
 3. This will automatically launch your terminal with a script to launch the Jupyter notebook and open a webpage in your default web browser showing the **Jupyter Notebook Dashboard** (often the link starts with ```http://localhost:8888/```).
 
-![Terminal prompt that gets launched](/assets/images/github/tutorial-jupyter-2.3.png)
+![Terminal prompt that gets launched](/assets/images/jupyter/tutorial-jupyter-2.3.png)
 
 **What Is Jupyter Dashboard?**
 
-![Terminal prompt that gets launched](/assets/images/github/tutorial-jupyter-2.4.png)
+![Terminal prompt that gets launched](/assets/images/jupyter/tutorial-jupyter-2.4.png)
 
 When you launch Jupyter Notebook, your browser opens the **Jupyter Dashboard**, which is simply a view of your computer’s local files and folders at the location where you started Jupyter. From here, you can:
 
@@ -128,7 +128,7 @@ In the Dashboard’s file list, click into the folder you created (e.g., ```MyJu
 
 In the Dashboard, click **New → Python 3 (pykernel)**. This will open a new browser tab with a notebook named **Untitled**.
 
-![New notebook](/assets/images/github/tutorial-jupyter-2.5.png)
+![New notebook](/assets/images/jupyter/tutorial-jupyter-2.5.png)
 
 You can click on “Untitled” to rename the notebook. For example, rename it to ```hello_world.ipynb```.
 
@@ -157,14 +157,14 @@ Contains buttons for quick access to frequent tasks:
 - Click the **▶️ Run** button in the toolbar.
 * After running, you should see the text ```“Hello, World!”``` displayed directly below the cell. The prompt will update (e.g., ```In [1]:```) to show that it has run once.
 
-![Hello, World example](/assets/images/github/tutorial-jupyter-2.6.png)
+![Hello, World example](/assets/images/jupyter/tutorial-jupyter-2.6.png)
 
 
 4. Insert a New Markdown Cell
 * Click on the **+** (plus) button in the toolbar to insert a new cell below.
 * By default, it’s a code cell. Switch it to **Markdown** by clicking on the **dropdown** that says “Code” and selecting Markdown. The dropdown can be located here:
 
-![Dropdown location](/assets/images/github/tutorial-jupyter-2.7.png)
+![Dropdown location](/assets/images/jupyter/tutorial-jupyter-2.7.png)
 
 *  Markdown cells follow the usual Markdown syntax. For example, you can paste this text there:
 
@@ -176,7 +176,7 @@ We wrote a simple Python command: `print("Hello, World!")`.
 ```
 * Run the Markdown cell by clicking on the **Run** button or pressing ```Shift + Enter```. You’ll see the formatted text in that cell.
 
-![Output after running the above instruction](/assets/images/github/tutorial-jupyter-2.8.png)
+![Output after running the above instruction](/assets/images/jupyter/tutorial-jupyter-2.8.png)
 
 ### 2.4. Save and Shut Down the Notebook
 
@@ -192,7 +192,7 @@ However, it is still recommended to manually save your work by running Ctrl + S 
 * To close just the browser tab, click the **×** on the tab.
 * But this alone doesn’t stop the kernel. To shut down the kernel, go back to the Dashboard tab, find your ```hello_world.ipynb``` under the **Running** tab, select it, then click **Shutdown** (this button is located on the toolbar on top of the Dashboard)
 
-![Shutting Down the Notebook](/assets/images/github/tutorial-jupyter-2.9.png)
+![Shutting Down the Notebook](/assets/images/jupyter/tutorial-jupyter-2.9.png)
 
 ---
 
