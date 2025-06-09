@@ -67,7 +67,7 @@ author:
     url:   "mailto:your-email@domain.com"
   - label: "GitHub"
     icon:  "fab fa-fw fa-github"
-    url:   "https://github.com/dhp-toolkit/dhp-toolkit.github.io"
+    url:   "https://github.com/dhp-toolkit/dhp-toolkit.github.io{:target="_blank" rel="noopener"}"
 
 footer:
   # links:

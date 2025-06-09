@@ -200,7 +200,6 @@ However, it is still recommended to manually save your work by running Ctrl + S 
 
 Once you’ve mastered the basics above, here are the next steps you can explore:
 1. **Markdown Formatting**
-
 Write headings (```# Heading 1, ## Heading 2```), bullet lists (```- item```), and even embed images. Historians can use this to document sources and add annotations directly in the Notebook.
 
 2. **Installing Additional Packages**
