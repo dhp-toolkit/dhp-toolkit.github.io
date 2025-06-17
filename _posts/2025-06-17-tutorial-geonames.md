@@ -46,7 +46,8 @@ Aditional columns (optional but recommended):
 Columns `source` and `type` won’t be used in the GeoNames query itself, but they are useful for organizing, filtering, or analyzing your results later.
 
 **Example row:**
-```
+
+```ruby
 Ras Al Khaimah,	port, Lorimer Gazetteer
 ```
 > 📌 Note: In this tutorial, you do not need to provide a country code to make a query. The GeoNames API will search globally using only the place name.
@@ -56,7 +57,7 @@ Ras Al Khaimah,	port, Lorimer Gazetteer
 
 Make sure to save `trucial_towns.csv` in the same folder as this notebook file (`.ipynb`) so it can be loaded correctly.
 
-```
+```ruby
 import pandas as pd
 
 # Load input CSV
@@ -78,7 +79,8 @@ We will use the free **GeoNames API** to retrieve information for each town. You
 `query_geonames` used below is a function that sends a request to the GeoNames API using the place name. It returns information like latitude, longitude, and geographic classification for the most relevant result found.
 
 **Code:**
-```
+
+```ruby
 import requests # This library allows us to send HTTP requests (to talk to web APIs)
 import time # This library lets us pause between API calls, to avoid rate limits
 
@@ -115,7 +117,8 @@ For each row in our dataset, we take the name of the place and use the `query_ge
 We also include a one-second pause between requests (`time.sleep(1)`) to avoid hitting the API's rate limits.
 
 **Code:**
-```
+
+```ruby
 # Add empty columns for enriched data
 df['latitude'] = ''
 df['longitude'] = ''
@@ -148,7 +151,8 @@ Final dataframe:
 ## 7. Save the Result into a CSV file
 
 **Code:**
-```
+
+```ruby
 output_file = "trucial_towns_enriched.csv"
 df.to_csv(output_file, index=False) # Save the output as a csv file
 print(f"Saved enriched dataset to {output_file}")
