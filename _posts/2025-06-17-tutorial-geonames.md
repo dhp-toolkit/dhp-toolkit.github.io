@@ -12,21 +12,21 @@ toc_label: "Table of Contents"
 
 ## 1. Introduction
 
-"Gazetteers" are structured lists of place names with information about their locations, variants, and historical context. In this tutorial, we will create a small dataset of historical places from the Trucial Coast (pre-UAE region) and enrich it using the GeoNames API.
+**"Gazetteers"** are structured lists of place names with information about their locations, variants, and historical context. In this tutorial, we will create a small dataset of historical places from the **Trucial Coast** (pre-UAE region) and enrich it using the **GeoNames API**.
 
 ## 2. Objective
 We will:
-- Start from a CSV file containing a few historical town names
-- Use the GeoNames API to retrieve coordinates and metadata
-- Save the enriched dataset to a new CSV file
+- Start from a **CSV** file containing a few historical town names
+- Use the **GeoNames API** to retrieve coordinates and metadata
+- Save the enriched dataset to a new **CSV** file
 
 
 ## 3. Setup: Install Required Libraries
 
 The libraries you need to install are for this tutorial are:
 
-- `pandas`: helps us easily create, manage, and manipulate structured datasets like our gazetteer of historical places
-- `requests`: allows us to send HTTP requests to the GeoNames API, so we can enrich our dataset with location details and additional information from this online geographic database
+- **`pandas`**: helps us easily create, manage, and manipulate structured datasets like our gazetteer of historical places
+- **`requests`**: allows us to send HTTP requests to the GeoNames API, so we can enrich our dataset with location details and additional information from this online geographic database
 
 You can install those libraries by running the following code:
 ```!pip install pandas requests```
@@ -162,7 +162,7 @@ print(f"Saved enriched dataset to {output_file}")
 ![Output](/assets/images/geonames/tutorial-geonames-7.1.png)
 
 
-## 8. What Next?
+## 8. What's Next?
 
 Now that you have coordinates and metadata, you can:
 - Import into **QGIS** or **Google My Maps** for visualization
