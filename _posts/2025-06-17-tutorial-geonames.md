@@ -33,7 +33,7 @@ You can install those libraries by running the following code:
 
 ## 4. Load the Input CSV
 
-You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/trucial_towns.csv.zip){:target="_blank" rel="noopener"}
+You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/trucial_towns.csv.zip){:target="_blank" rel="noopener"}.
 
 If you choose to use your own input file with this tutorial, make sure it's named as `trucial_towns.csv` and has at least the following column:
 - `name`: historical place name
@@ -110,7 +110,7 @@ def query_geonames(place_name):
 ```
 
 
-## 6. Query GeoNames for Each Place and Enrich the Dataset
+## 6. Enrich the Dataset
 
 For each row in our dataset, we take the name of the place and use the `query_geonames()` function to retrieve data from GeoNames. The results are added as new columns to the dataset.
 
