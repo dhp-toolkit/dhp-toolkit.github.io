@@ -43,7 +43,7 @@ Aditional columns (optional but recommended):
 - `type`: A description of the kind of place — e.g., fort, settlement, port, etc.
 - `source`: A note about where the name came from — e.g., a historical map, archive, or article
 
-Columns `source, type` won’t be used in the GeoNames query itself, but they are useful for organizing, filtering, or analyzing your results later.
+Columns `source` and `type` won’t be used in the GeoNames query itself, but they are useful for organizing, filtering, or analyzing your results later.
 
 **Example row:**
 ```
