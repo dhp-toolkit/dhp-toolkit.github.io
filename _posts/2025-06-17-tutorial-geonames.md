@@ -33,7 +33,7 @@ You can install those libraries by running the following code:
 
 ## 4. Load the Input CSV
 
-You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/8696c45d497e404bad7fdfb66a07d609571181d8/assets/sample-archive.zip) 
+You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/trucial_towns.csv.zip){:target="_blank" rel="noopener"}
 
 If you choose to use your own input file with this tutorial, make sure it's named as `trucial_towns.csv` and has at least the following column:
 - `name`: historical place name

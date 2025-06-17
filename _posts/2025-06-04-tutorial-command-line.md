@@ -45,7 +45,7 @@ Install [Git for Windows](https://gitforwindows.org/){:target="_blank" rel="noop
 *Alternate*: You can also use **Windows PowerShell 7**. It’s pre‑installed on Windows 11, and it’s good enough for basics, but the syntax may differ. This guide uses Bash.
 
 ## 3. Download the Sample Dataset
-For this tutorial, we will be working with a sample dataset, which can be downloaded using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/8696c45d497e404bad7fdfb66a07d609571181d8/assets/sample-archive.zip). The dataset folder is organized in the following manner:
+For this tutorial, we will be working with a sample dataset, which can be downloaded using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/8696c45d497e404bad7fdfb66a07d609571181d8/assets/sample-archive.zip){:target="_blank" rel="noopener"}. The dataset folder is organized in the following manner:
 
 ```
 sample-archive/
