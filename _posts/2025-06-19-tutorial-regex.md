@@ -20,7 +20,7 @@ You'll learn how to:
 - Remove special characters
 - Choose to keep either Arabic or Latin (English) text only
 
-### Why Preprocess Text?
+## Why Preprocess Text?
 
 Before we analyze text (like searching, summarizing, or finding patterns), we need to clean it to ensure consistency, remove unnecessary parts (like punctuation or symbols), and help us focus on the actual content.
 
@@ -38,3 +38,4 @@ print(raw_text[:500])
 ```
 
 ![Output](/assets/images/regex/tutorial-regex-1.1.png)
+
