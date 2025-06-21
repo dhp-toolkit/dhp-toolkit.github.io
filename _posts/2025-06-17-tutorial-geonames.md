@@ -23,9 +23,9 @@ You can follow this tutorial in one of two ways:
 
 Choose whichever method you’re most comfortable with — both will work just fine!
 
-The ready-to-run Jupyter notebook can be downloaded following this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/QueryingGeoNames.ipynb){:target="_blank" rel="noopener"}. 
+The **ready-to-run** Jupyter notebook can be downloaded following this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/QueryingGeoNames.ipynb){:target="_blank" rel="noopener"}. 
 
-> To download the file following the above link, click on 3 dots on the upper-right corner which displays 'More file actions', then click on the Download button.
+> To download the file following the above link, click on the 3 dots on the upper-right corner which displays **'More file actions'**, then click on the **Download** button.
 ![Screenshot of the download button](/assets/images/geonames/tutorial-geonames-1.1.png)
 
 
@@ -94,81 +94,128 @@ After you run the above code, you will see the following dataframe printed:
 
 ## 5. Define the GeoNames Query Function
 
-We will use the free **GeoNames API** to retrieve information for each town. You must register at [https://www.geonames.org/login](https://www.geonames.org/login){:target="_blank" rel="noopener"} and get a username.
+We will use the free **GeoNames API**to retrieve information for each town. You must register at [https://www.geonames.org/login](https://www.geonames.org/login){:target="_blank" rel="noopener"} and get a username.
 
-`query_geonames` used below is a function that sends a request to the GeoNames API using the place name. It returns information like latitude, longitude, and geographic classification for the most relevant result found.
+To enrich the dataset, the tutorial leverages the free GeoNames API. Before proceeding, you need to register on the GeoNames website [https://www.geonames.org/login](https://www.geonames.org/login) to obtain a username.
+
+The following code defines the `query_geonames` function which is designed to send a request to the GeoNames API using a given place name. It processes the API's JSON response and extracts relevant information such as latitude, longitude, GeoNames ID, feature class, feature code, and filtered alternate names. The function includes logic to filter out irrelevant alternate names, such as URLs, airport codes (IATA, ICAO, FAAC), postal codes, Wikidata IDs, and short, all-caps codes. 
+
+Remember to replace `GeoNames_username` with your actual GeoNames username.
+
+This function constructs the API request, sends it, and then parses the JSON response to extract and return the desired geographic data and a semicolon-separated string of filtered alternate names. Error handling for requests exceptions is also included.
 
 **Code:**
 
 ```ruby
-import requests # This library allows us to send HTTP requests (to talk to web APIs)
-import time # This library lets us pause between API calls, to avoid rate limits
+import requests # For making HTTP requests to web services.
+import time     # For pausing execution to avoid hitting API rate limits.
 
-GEONAMES_USERNAME = "GeoNames_username"  # CHANGE THIS to your registered GeoNames username
+GEONAMES_USERNAME = "GeoNames_username"  # CHANGE THIS with your GeoNames username
 
-def query_geonames(place_name):
-    base_url = "http://api.geonames.org/searchJSON" # The GeoNames API endpoint
+def query_geonames(place_name): # Function to query the GeoNames API for a given place name.
+    base_url = "http://api.geonames.org/searchJSON" # Base URL for GeoNames search API.
     params = {
-        'q': place_name, # The place name you want to search for (e.g., "Sharjah")
-        'maxRows': 1,    # Only return the top 1 result (most relevant match)
-        'username': GEONAMES_USERNAME
+        'q': place_name,    # Query parameter: the place name to search.
+        'maxRows': 1,       # Limit results to the top 1 match.
+        'username': GEONAMES_USERNAME, # Your GeoNames username.
+        'style': 'FULL'     # Request full details in the response.
     }
-    response = requests.get(base_url, params=params) # Send GET request to GeoNames
     
-    # Print the request info for debugging. This helps you verify whether the request worked.
-    print(f"Querying: {place_name}")
-    print(f"Status Code: {response.status_code}") 
-    if response.status_code == 200: # A status code of 200 means success.
-        results = response.json()   # Convert the API response to a Python dictionary
-        print(f"Response JSON: {results}") # This will show the full API response
+    try:
+        response = requests.get(base_url, params=params) # Send GET request.
+        response.raise_for_status()                     # Raise an exception for bad status codes (4xx or 5xx).
         
-        geonames_data = results.get('geonames', [])  # Get the list of results
+        print(f"Querying: {place_name}")               # Debug print: shows current query.
+        print(f"Status Code: {response.status_code}") # Debug print: shows HTTP status.
+        
+        results = response.json()                       # Parse JSON response into a Python dictionary.
+        # print(f"Response JSON: {results}")             # Debug print: shows full API response.
+        geonames_data = results.get('geonames', [])     # Extract 'geonames' list, default to empty list if not found.
+        
         if geonames_data:
-            top = geonames_data[0]  # Take the first (best match)
-            return top.get('lat'), top.get('lng'), top.get('geonameId'), top.get('fcl'), top.get('fcode')
-    return '', '', '', '', ''
+            top = geonames_data[0]                      # Get the first (and only) result.
+            
+            filtered_alt_names = []                     # Initialize list for cleaned alternate names.
+            if 'alternateNames' in top:
+                for alt_obj in top['alternateNames']:
+                    name = alt_obj.get('name', '')      # Get alternate name.
+                    lang = alt_obj.get('lang', '')      # Get language code.
+
+                    # Filter rules for alternate names:
+                    if name.startswith('http'): continue          # Exclude URLs.
+                    if lang in ['iata', 'icao', 'faac', 'post', 'wkdt']: continue # Exclude specific codes.
+                    if len(name) <= 5 and name.isupper(): continue # Exclude short, all-caps codes.
+                    if name.startswith('Q') and name[1:].isdigit(): continue # Exclude Wikidata Q-codes.
+
+                    filtered_alt_names.append(name)     # Add valid alternate name.
+            
+            unique_alt_names = list(dict.fromkeys(filtered_alt_names)) # Remove duplicates while preserving order.
+            alt_names_str = "; ".join(unique_alt_names) # Join unique names with semicolon.
+            
+            return (top.get('lat'),                     # Return latitude.
+                    top.get('lng'),                     # Return longitude.
+                    top.get('geonameId'),               # Return GeoNames ID.
+                    top.get('fcl'),                     # Return feature class.
+                    top.get('fcode'),                   # Return feature code.
+                    alt_names_str)                      # Return filtered alternate names string.
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error querying for '{place_name}': {e}") # Print error message for request failures.
+        
+    return '', '', '', '', '', '' # Return empty strings on error or no results.
 ```
 
 
 ## 6. Enrich the Dataset
 
-For each row in our dataset, we take the name of the place and use the `query_geonames()` function to retrieve data from GeoNames. The results are added as new columns to the dataset.
+This section iterates through each row of the loaded dataset (`df`). For each historical place name, it calls the `query_geonames()` function to fetch relevant geographical data from the GeoNames API. 
 
-We also include a one-second pause between requests (`time.sleep(1)`) to avoid hitting the API's rate limits.
+The retrieved data, including latitude, longitude, GeoNames ID, feature class, feature code, and alternate names, is then added as new columns to the DataFrame. 
+
+A one-second pause (**`time.sleep(1)`**) is incorporated between API requests to prevent exceeding GeoNames' rate limits. 
+After processing all entries, the updated DataFrame with the newly added information is displayed.
+For each row in our dataset, we take the name of the place and use the `query_geonames()` function to retrieve data from GeoNames. The results are added as new columns to the dataset.
 
 **Code:**
 
 ```ruby
-# Add empty columns for enriched data
 df['latitude'] = ''
 df['longitude'] = ''
 df['geonames_id'] = ''
 df['feature_class'] = ''
 df['feature_code'] = ''
+df['alternate_names'] = ''
 
 # Query each place
 for idx, row in df.iterrows():
-    lat, lon, gid, fcl, fcode = query_geonames(row['name']) # Call the query_geonames function for each row listed in the dataframe
+    # The function now returns the alternate names string directly
+    lat, lon, gid, fcl, fcode, alt_names = query_geonames(row['name']) 
+    
     df.at[idx, 'latitude'] = lat
     df.at[idx, 'longitude'] = lon
     df.at[idx, 'geonames_id'] = gid
     df.at[idx, 'feature_class'] = fcl
     df.at[idx, 'feature_code'] = fcode
+    df.at[idx, 'alternate_names'] = alt_names # Populate the new column
+    
     time.sleep(1)  # Pause to avoid rate limits
 
-# Show enriched data
-df.head() # displays the first 5 rows
+# Show the first five entries of the table
+print(df.head())
 ```
 
 **Expected output:**
 
-Full API Response:
-![API Response](/assets/images/geonames/tutorial-geonames-6.1.png)
+![Output](/assets/images/geonames/tutorial-geonames-6.1.png)
 
-Final dataframe:
-![API Response](/assets/images/geonames/tutorial-geonames-6.2.png)
 
 ## 7. Save the Result into a CSV file
+
+After the dataset has been enriched with information from GeoNames, the next step is to save the updated DataFrame to a new CSV file. This ensures that the retrieved data is persistently stored and can be used for further analysis or visualization.
+
+The following code block saves the `df` DataFrame to a new CSV file named **`trucial_towns_enriched.csv`**. 
+The `index=False` argument prevents pandas from writing the DataFrame index as a column in the CSV file. 
+A confirmation message is then printed to indicate that the file has been saved.
 
 **Code:**
 
@@ -182,12 +229,114 @@ print(f"Saved enriched dataset to {output_file}")
 ![Output](/assets/images/geonames/tutorial-geonames-7.1.png)
 
 
-## 8. What's Next?
 
-Now that you have coordinates and metadata, you can:
-- Import into **QGIS** or **Google My Maps** for visualization
-- Align with the **World Historical Gazetteer (WHG)**
-- Add temporal information and submit your dataset to WHG for educational use
+## 8. Querying by Country, Feature Class, and Feature Code
+
+Sometimes, you might want to find specific types of geographical features within a particular country, rather than searching for a named place globally. The GeoNames API allows you to refine your search using parameters like: 
+- **`country`** (two-letter ISO country code)
+- `**`featureClass`**` (a broad category like 'H' for hydrographic features or 'P' for populated places)
+- **``featureCode`**` (a more specific type within a feature class, like 'RVR' for river or 'LAKE' for lake).
+
+You can get the list of featureCodes that belong to each featureClass [here](https://www.geonames.org/export/codes.html).
+
+This section demonstrates how to query for all hydrographic features (rivers, lakes, etc.) within a specific country (e.g., Turkey) and then save these results to a CSV file.
+
+First, let's define a new function **`query_geonames_by_criteria()`** that takes `country_code`, `feature_class`, and an optional `feature_code` as arguments. This function will fetch results based on these criteria.
+
+**Code:**
+
+```ruby
+import requests
+import pandas as pd # Import pandas to work with DataFrames and save to CSV.
+
+GEONAMES_USERNAME = "yourGeonamesUsername"  # Replace with your actual GeoNames username
+
+def query_geonames_by_criteria(country_code, feature_class, feature_code=None, max_rows=1000):
+    # This function queries GeoNames for features based on country, feature class, and optional feature code.
+    url = "http://api.geonames.org/searchJSON"
+    params = {
+        'country': country_code,     # ISO 2-letter country code (e.g., 'TR' for Turkey).
+        'featureClass': feature_class, # Feature Class (e.g., 'H' for hydrographic, 'P' for populated place).
+        'maxRows': max_rows,         # Maximum number of results to retrieve (up to 1000 for free account).
+        'username': GEONAMES_USERNAME
+    }
+    
+    if feature_code:
+        params['featureCode'] = feature_code # Add featureCode to parameters if provided.
+
+    print(f"Querying GeoNames for features in {country_code} (Class: {feature_class}, Code: {feature_code if feature_code else 'Any'})...")
+    
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status() # Raise an exception for HTTP errors.
+        
+        print(f"Status Code: {response.status_code}")
+        data = response.json()
+        results = data.get('geonames', [])
+        
+        print(f"Found {len(results)} features.")
+        
+        # Optionally print a sample of the results
+        for i, place in enumerate(results[:5]):
+            print(f"  Sample {i+1}: Name: {place.get('name')}, Code: {place.get('fcode')}, Lat: {place.get('lat')}, Lng: {place.get('lng')}")
+            
+        return results
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Error querying GeoNames: {e}")
+        return []
+
+# Example Usage: Query for hydrographic features in Turkey
+print("\n--- Querying Hydrographic Features in Turkey ---")
+tr_hydro_features = query_geonames_by_criteria(country_code='TR', feature_class='H')
+
+# Example Usage: Query for specific feature code - Rivers (RVR) in Turkey
+print("\n--- Querying Rivers (RVR) in Turkey ---")
+tr_lakes= query_geonames_by_criteria(country_code='TR', feature_class='H', feature_code='LK')
+
+```
+
+**Expected output:**
+
+![Output](/assets/images/geonames/tutorial-geonames-8.1.png)
+
+
+Now that we have functions to query based on specific criteria, let's save the results into a CSV file for further use. We'll convert the list of dictionaries returned by the function into a Pandas DataFrame and then save it.
+
+**Code:**
+
+```ruby
+# Define the desired column order
+desired_columns = ['name', 'lat', 'lng', 'countryName', 'countryCode', 'fcl', 'fclName', 'fcode', 'fcodeName', 'adminName1']
+
+# Convert the list of results into a pandas DataFrame and save to CSV.
+if tr_hydro_features:
+    df_tr_hydro = pd.DataFrame(tr_hydro_features)
+    # Select and reorder columns
+    df_tr_hydro_selected = df_tr_hydro[desired_columns]
+    output_filename_hydro_tr = "tr_hydrographic_features.csv"
+    df_tr_hydro_selected.to_csv(output_filename_hydro_tr, index=False)
+    print(f"\nSaved {len(tr_hydro_features)} hydrographic features from Turkey to {output_filename_hydro_tr} with specified columns.")
+
+if tr_rivers:
+    df_tr_rivers = pd.DataFrame(tr_rivers)
+    # Select and reorder columns
+    df_tr_rivers_selected = df_tr_rivers[desired_columns]
+    output_filename_rivers_tr = "tr_rivers.csv"
+    df_tr_rivers_selected.to_csv(output_filename_rivers_tr, index=False)
+    print(f"Saved {len(tr_rivers)} rivers from Turkey to {output_filename_rivers_tr} with specified columns.")
+```
+**Expected output:**
+
+![Output](/assets/images/geonames/tutorial-geonames-8.2.png)
+
+
+
+## 9. What's Next?
+
+Now that you have coordinates and metadata, you can try:
+- Importing into **QGIS** or **Google My Maps** for visualization
+- Aligning with the **World Historical Gazetteer (WHG)**
 
 You can also extend this notebook to:
 - Query for multiple alternate names
