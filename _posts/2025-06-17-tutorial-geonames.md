@@ -100,7 +100,7 @@ To enrich the dataset, the tutorial leverages the free GeoNames API. Before proc
 
 The following code defines the `query_geonames` function which is designed to send a request to the GeoNames API using a given place name. It processes the API's JSON response and extracts relevant information such as latitude, longitude, GeoNames ID, feature class, feature code, and filtered alternate names. The function includes logic to filter out irrelevant alternate names, such as URLs, airport codes (IATA, ICAO, FAAC), postal codes, Wikidata IDs, and short, all-caps codes. 
 
-Remember to replace `GeoNames_username` with your actual GeoNames username.
+Remember to replace `yourGeonamesUsername` with your actual GeoNames username.
 
 This function constructs the API request, sends it, and then parses the JSON response to extract and return the desired geographic data and a semicolon-separated string of filtered alternate names. Error handling for requests exceptions is also included.
 
@@ -110,7 +110,7 @@ This function constructs the API request, sends it, and then parses the JSON res
 import requests # For making HTTP requests to web services.
 import time     # For pausing execution to avoid hitting API rate limits.
 
-GEONAMES_USERNAME = "GeoNames_username"  # CHANGE THIS with your GeoNames username
+GEONAMES_USERNAME = "yourGeonamesUsername"  # CHANGE THIS with your GeoNames username
 
 def query_geonames(place_name): # Function to query the GeoNames API for a given place name.
     base_url = "http://api.geonames.org/searchJSON" # Base URL for GeoNames search API.
@@ -246,18 +246,19 @@ First, let's define a new function **`query_geonames_by_criteria()`** that takes
 **Code:**
 
 ```ruby
+
 import requests
-import pandas as pd # Import pandas to work with DataFrames and save to CSV.
+import pandas as pd # Import pandas to work with DataFrames and save to CSV
 
 GEONAMES_USERNAME = "yourGeonamesUsername"  # Replace with your actual GeoNames username
 
 def query_geonames_by_criteria(country_code, feature_class, feature_code=None, max_rows=1000):
-    # This function queries GeoNames for features based on country, feature class, and optional feature code.
+    # This function queries GeoNames for features based on country, feature class, and optional feature code
     url = "http://api.geonames.org/searchJSON"
     params = {
-        'country': country_code,     # ISO 2-letter country code (e.g., 'TR' for Turkey).
-        'featureClass': feature_class, # Feature Class (e.g., 'H' for hydrographic, 'P' for populated place).
-        'maxRows': max_rows,         # Maximum number of results to retrieve (up to 1000 for free account).
+        'country': country_code,     # ISO 2-letter country code (e.g., 'TR' for Turkey)
+        'featureClass': feature_class, # Feature Class (e.g., 'H' for hydrographic, 'P' for populated place)
+        'maxRows': max_rows,         # Maximum number of results to retrieve (up to 1000 for free account)
         'username': GEONAMES_USERNAME
     }
     
@@ -267,14 +268,14 @@ def query_geonames_by_criteria(country_code, feature_class, feature_code=None, m
     print(f"Querying GeoNames for features in {country_code} (Class: {feature_class}, Code: {feature_code if feature_code else 'Any'})...")
     
     try:
-        response = requests.get(url, params=params)
-        response.raise_for_status() # Raise an exception for HTTP errors.
+        response = requests.get(url, params=params) # Send GET request
+        response.raise_for_status() # Raise an exception for HTTP errors
         
-        print(f"Status Code: {response.status_code}")
-        data = response.json()
-        results = data.get('geonames', [])
+        print(f"Status Code: {response.status_code}") # Print HTTP status
+        data = response.json() # Parse JSON response
+        results = data.get('geonames', []) # Extract 'geonames' list
         
-        print(f"Found {len(results)} features.")
+        print(f"Found {len(results)} features.") # Print number of results
         
         # Optionally print a sample of the results
         for i, place in enumerate(results[:5]):
@@ -282,8 +283,8 @@ def query_geonames_by_criteria(country_code, feature_class, feature_code=None, m
             
         return results
         
-    except requests.exceptions.RequestException as e:
-        print(f"Error querying GeoNames: {e}")
+    except requests.exceptions.RequestException as e: # Catch errors as exceptions
+        print(f"Error querying GeoNames: {e}") # Print error message
         return []
 
 # Example Usage: Query for hydrographic features in Turkey
@@ -309,22 +310,22 @@ Now that we have functions to query based on specific criteria, let's save the r
 # Define the desired column order
 desired_columns = ['name', 'lat', 'lng', 'countryName', 'countryCode', 'fcl', 'fclName', 'fcode', 'fcodeName', 'adminName1']
 
-# Convert the list of results into a pandas DataFrame and save to CSV.
+# Process and save hydrographic features for Turkey
 if tr_hydro_features:
-    df_tr_hydro = pd.DataFrame(tr_hydro_features)
-    # Select and reorder columns
-    df_tr_hydro_selected = df_tr_hydro[desired_columns]
-    output_filename_hydro_tr = "tr_hydrographic_features.csv"
-    df_tr_hydro_selected.to_csv(output_filename_hydro_tr, index=False)
+    df_tr_hydro = pd.DataFrame(tr_hydro_features) # Convert results to DataFrame
+    df_tr_hydro_selected = df_tr_hydro[desired_columns]     # Select and reorder columns
+    output_filename_hydro_tr = "tr_hydrographic_features.csv" # Define output filename
+    df_tr_hydro_selected.to_csv(output_filename_hydro_tr, index=False) # Save to CSV, no index
     print(f"\nSaved {len(tr_hydro_features)} hydrographic features from Turkey to {output_filename_hydro_tr} with specified columns.")
 
+# Process and save rivers for Turkey
 if tr_rivers:
     df_tr_rivers = pd.DataFrame(tr_rivers)
-    # Select and reorder columns
     df_tr_rivers_selected = df_tr_rivers[desired_columns]
     output_filename_rivers_tr = "tr_rivers.csv"
     df_tr_rivers_selected.to_csv(output_filename_rivers_tr, index=False)
     print(f"Saved {len(tr_rivers)} rivers from Turkey to {output_filename_rivers_tr} with specified columns.")
+
 ```
 **Expected output:**
 
