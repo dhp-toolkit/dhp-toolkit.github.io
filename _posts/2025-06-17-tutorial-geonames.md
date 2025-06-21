@@ -10,6 +10,25 @@ toc_sticky: true
 toc_label: "Table of Contents"
 ---
 
+## Prerequisites
+
+This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
+
+**Before you begin:**
+
+You can follow this tutorial in one of two ways:
+
+- Download and run the notebook directly on your computer using Jupyter (e.g., through Anaconda or any Python environment that supports notebooks), or
+- Create a new Jupyter notebook and copy-paste the code and explanations step-by-step as you follow along. This lets you write and test your own code interactively.
+
+Choose whichever method you’re most comfortable with — both will work just fine!
+
+The ready-to-run Jupyter notebook can be downloaded following this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/QueryingGeoNames.ipynb){:target="_blank" rel="noopener"}. 
+
+> To download the file following the above link, click on 3 dots on the upper-right corner which displays 'More file actions', then click on the Download button.
+![Screenshot of the download button](/assets/images/geonames/tutorial-geonames-1.1.png)
+
+
 ## 1. Introduction
 
 **"Gazetteers"** are structured lists of place names with information about their locations, variants, and historical context. In this tutorial, we will create a small dataset of historical places from the **Trucial Coast** (pre-UAE region) and enrich it using the **GeoNames API**.
@@ -26,18 +45,19 @@ We will:
 The libraries you need to install are for this tutorial are:
 
 - **`pandas`**: helps us easily create, manage, and manipulate structured datasets like our gazetteer of historical places
-- **`requests`**: allows us to send HTTP requests to the GeoNames API, so we can enrich our dataset with location details and additional information from this online geographic database
+- **`requests`**: allows us to send HTTP requests to the GeoNames API, so we can enrich our dataset with location adetails and additional information from this online geographic database
+
+> **Note:** These libraries might already be installed in your environment. In that case, running the command will display a message similar to:`Requirement already satisfied`
 
 You can install those libraries by running the following code:
 ```!pip install pandas requests```
 
 ## 4. Load the Input CSV
 
-You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/trucial_towns.csv.zip){:target="_blank" rel="noopener"}.
+You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/trucial_towns.zip){:target="_blank" rel="noopener"}.
 
-If you choose to use your own input file with this tutorial, make sure it's named as `trucial_towns.csv` and has at least the following column:
+If you choose to use your own input file with this tutorial, be sure to replace the file name in the code (`trucial_towns.csv`) with the name of your own file and ensure your file contains at least the following column:
 - `name`: historical place name
-
 
 Aditional columns (optional but recommended):
 - `type`: A description of the kind of place — e.g., fort, settlement, port, etc.
@@ -57,11 +77,11 @@ Ras Al Khaimah,	port, Lorimer Gazetteer
 
 Make sure to save `trucial_towns.csv` in the same folder as this notebook file (`.ipynb`) so it can be loaded correctly.
 
-```ruby
+```rubys
 import pandas as pd
 
 # Load input CSV
-input_file = "trucial_towns.csv"  # Make sure this file is in the same folder as your notebook
+input_file = "trucial_towns.csv"  # Rename this if to match your file name and make sure it is in the same folder as your notebook
 df = pd.read_csv(input_file)
 
 # Display the data
@@ -173,5 +193,3 @@ You can also extend this notebook to:
 - Query for multiple alternate names
 - Visualize the towns using **Python libraries** like `folium` or `plotly`
 - Compare coverage with **Wikidata** or **WHG**
-
-Let your dataset grow from here!
