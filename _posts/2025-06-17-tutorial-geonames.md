@@ -26,7 +26,7 @@ Choose whichever method you’re most comfortable with — both will work just f
 The **ready-to-run** Jupyter notebook can be downloaded following this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/QueryingGeoNames.ipynb){:target="_blank" rel="noopener"}. 
 
 > To download the file following the above link, click on the 3 dots on the upper-right corner which displays **'More file actions'**, then click on the **Download** button.
-![Screenshot of the download button](/assets/images/geonames/tutorial-geonames-1.1.png)
+![Screenshot of the download button](/assets/images/geonames/tutorial-geonames-1.1.png =100x20)
 
 
 ## 1. Introduction
