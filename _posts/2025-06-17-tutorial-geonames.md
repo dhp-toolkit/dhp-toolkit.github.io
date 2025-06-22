@@ -94,7 +94,7 @@ After you run the above code, you will see the following dataframe printed:
 
 ## 5. Define the GeoNames Query Function
 
-We will use the free **GeoNames API**to retrieve information for each town. You must register at [https://www.geonames.org/login](https://www.geonames.org/login){:target="_blank" rel="noopener"} and get a username.
+We will use the free **GeoNames API** to retrieve information for each town. You must register at [https://www.geonames.org/login](https://www.geonames.org/login){:target="_blank" rel="noopener"} and get a username.
 
 To enrich the dataset, the tutorial leverages the free GeoNames API. Before proceeding, you need to register on the GeoNames website [https://www.geonames.org/login](https://www.geonames.org/login) to obtain a username.
 
