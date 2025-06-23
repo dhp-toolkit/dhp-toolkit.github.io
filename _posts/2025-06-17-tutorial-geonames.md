@@ -10,6 +10,8 @@ toc_sticky: true
 toc_label: "Table of Contents"
 ---
 
+A hands-on, beginner-friendly guide to querying historical place data using the GeoNames API. Learn how to search for places by name, extract geographic coordinates, feature types, and alternate names, and save the results for analysis—all through clear Python examples. No prior experience with APIs required; perfect for students and researchers in history or the humanities working with historical maps, gazetteers, or place-based data.
+
 ## Prerequisites
 
 This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
