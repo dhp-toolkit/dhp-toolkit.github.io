@@ -210,11 +210,11 @@ However, it is still recommended to manually save your work by running Ctrl + S 
 
 Once you’ve mastered the basics above, here are the next steps you can explore:
 
-**1. Markdown Formatting**
+### Markdown Formatting
 
 Write headings (```# Heading 1, ## Heading 2```), bullet lists (```- item```), and even embed images. Historians can use this to document sources and add annotations directly in the Notebook.
 
-**2. Installing Additional Packages**
+### Installing Additional Packages
 
 If you want to analyze CSV files or create charts, you can install libraries such as **pandas** and **matplotlib** by running in the terminal: ```conda install pandas matplotlib```
 
@@ -227,7 +227,7 @@ import matplotlib.pyplot as plt
 
 These libraries let you import data, manipulate it, and visualize it—all within the same document.
 
-**3. Using Jupyter Extensions**
+### Using Jupyter Extensions
 
 **nbextensions**: Add features like spell-checking or code folding. 
 
@@ -240,7 +240,7 @@ jupyter contrib nbextension install --user
 
 Once installed, you’ll have a new **“Nbextensions”** tab in the Dashboard to turn on helpful tools.
 
-**4. Sharing Notebooks**
+### Sharing Notebooks
 
 Export your notebook as a PDF or HTML via **File → Download as → PDF** (requires extra setup) or **HTML** (no extra installation).
 People you shared it with would be able to view your workflow without running any code.
@@ -265,7 +265,7 @@ People you shared it with would be able to view your workflow without running an
 
 Below are some common issues you might encounter when working with Jupyter Notebook and suggested solutions:
 
-**1. Notebook Won’t Launch**
+### 5.1. Notebook Won’t Launch
 
 **Issue:** Typing ```jupyter notebook``` in the Terminal/Anaconda Prompt doesn’t open a browser window or gives an error.
 
@@ -274,7 +274,7 @@ Below are some common issues you might encounter when working with Jupyter Noteb
 * Another process is already using port 8888. Run ```jupyter notebook --port=8890``` (or any free port).
 * Environment variables didn’t update after installation. Close and reopen your Terminal/Anaconda Prompt before retrying.
 
-**2. Kernel Issues (e.g., “Kernel Busy,” “No Kernel Found”)**
+### 5.2 Kernel Issues (e.g., “Kernel Busy,” “No Kernel Found”)
 
 **Issue:** The circle next to “Kernel” stays solid (busy) or you see “No Kernel” in the top right.
 
@@ -284,7 +284,7 @@ Below are some common issues you might encounter when working with Jupyter Noteb
 * If you previously created another environment (e.g., ```conda create -n hist_env python=3.9```), you must run ```conda activate hist_env``` and then ```conda install jupyter``` within that environment.
 
 
-**3. “Module Not Found” Errors**
+### 5.3 “Module Not Found” Errors
 
 **Issue:** Running ```import pandas as pd``` shows ```ModuleNotFoundError: No module named 'pandas'```.
 
@@ -292,23 +292,23 @@ Below are some common issues you might encounter when working with Jupyter Noteb
 ```pip install pandas``` in your active environment. Then restart the kernel (Kernel → Restart).
 
 
-**4. Notebook Autosaves Too Frequently or Not at All**
+### 5.4 Notebook Autosaves Too Frequently or Not at All
 
 **Tip:** Jupyter autosaves every few minutes by default. You can change autosave settings under File → Save and Checkpoint or adjust in View → Cell Toolbar → Edit Metadata. If Jupyter isn’t autosaving, manually save often (```Ctrl + S``` / ```Cmd + S```).
 
-**5. Browser Doesn’t Show Images or Plots**
+### 5.5 Browser Doesn’t Show Images or Plots
 
 **Issue:** You run plotting code (e.g., with ```matplotlib```) but see no figure.
 
 **Fix:** Ensure you include ```%matplotlib``` inline at the top of your notebook. This “magic command” tells Jupyter to display plots in the output cells.
 
-**6. Accidentally Deleted a Cell:**
+### 5.6 Accidentally Deleted a Cell:
 
 **Tip:** In Command mode, press Z to undo deleting a cell. This only works until you close the notebook.
 
 ---
 
-## 7. Further Resources
+## 6. Further Resources
 
 To continue learning, explore these beginner-friendly guides and references:
 
