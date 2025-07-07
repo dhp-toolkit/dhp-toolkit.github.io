@@ -40,13 +40,13 @@ You can also ask general questions like:
 
 Data analysis and reproducible workflows are becoming increasingly important in digital history. Jupyter Notebook is a tool that lets you combine text, code, and output (tables, charts, etc.) in a single, shareable document. You can annotate your thought process in plain language (using “Markdown” text cells) alongside executable code cells, so that colleagues or students can follow every step of your analysis.
 
-## Why Jupyter Notebook?
+### 1.1 Why Jupyter Notebook?
 * **Interactivity:** Run small chunks of code (“cells”) one at a time and immediately see results.
 * **Narrative + Code:** Write explanatory text (using Markdown) above or below your code. This is ideal for documenting workflows or teaching.
 * **Reproducibility:** Share a single file (.ipynb) that contains both your analysis and your explanations. Anyone with Jupyter installed can run it end to end.
 
 
-## Important Terms
+### 1.2 Important Terms
 * **Python:** A widely used, beginner-friendly programming language. You’ll run Python code inside Jupyter.
 * **Environment:** A self-contained setup of Python and related packages. We’ll use Anaconda, which bundles Python plus Jupyter and many other useful data-analysis libraries.
 * **IDE (Integrated Development Environment)**: Software that helps you write and run code. Jupyter Notebook is one example of an IDE, but focused on “notebooks” rather than plain scripts.
