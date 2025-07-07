@@ -33,12 +33,12 @@ This module introduces a set of best practices and command-line tools to manage 
 
 ## 2. Preparing Your Terminal
 
-### macOS / Linux:
+### 2.1 macOS / Linux:
 Open the **Terminal** app (search “Terminal” in Spotlight or locate it in the Applications folder). You’re in a Bash shell by default.
 
 ![Terminal icon](/assets/images/cmdline/tutorial-cmdline-2.png)
 
-### Windows:
+### 2.2 Windows:
 
 Install [Git for Windows](https://gitforwindows.org/){:target="_blank" rel="noopener"} and use **Git Bash**. It lets you use Bash commands on Windows. After installing, open Git Bash from the Start menu.
 
@@ -68,7 +68,7 @@ sample-archive/
 
 Before we begin typing commands, it's essential to understand the idea of a **path**.
 
-**What is a path—and why does it matter?**
+**What is a path?**
 
 A **path** is the location of a file or folder on your computer. Bash commands use paths to know **where** to find or place things. Without the correct path, the command won’t know what to act on.
 
@@ -85,7 +85,7 @@ All Bash commands that involve moving, copying, or opening files need to know wh
 
 One of the most common commands you'll use is: ```cd foldername/```
 
-This command means ****“change directory”**—in other words, move into a different folder.
+This command means **change directory**—in other words, move into a different folder.
  For example, the command: ```cd images/``` only works if your current directory contains a folder called **images**. If you're in the wrong place, the command will fail.
 
 All commands in the next sections assume you’ve already extracted the ```sample-archive``` folder and are now working inside that folder. To follow along, open your terminal shell, then cd into that folder: ```cd path/to/sample-archive```. 
@@ -97,7 +97,7 @@ All commands in the next sections assume you’ve already extracted the ```sampl
 
 ![How to navigate to the sample-archive directory via terminal](/assets/images/cmdline/tutorial-cmdline-4.1.png)
 
-### A. Navigating
+### 4.1 Navigating
 
 **What you will learn:** how to move around the file system using basic navigation commands. You'll know commands to check what’s inside folders, switch between directories, and confirm your directory.
 
@@ -126,7 +126,7 @@ Below is an example of running these commands on a Mac terminal. Each line on th
 
 ![Example output](/assets/images/cmdline/tutorial-cmdline-4.2.png)
 
-### B. Creating and Moving Files
+### 4.2 Creating and Moving Files
 
 **What you will learn:** how to make folders, move files into them, and make copies. These skills help keep your archive tidy and organized.
 
@@ -155,7 +155,7 @@ cp article-A.pdf article-A-COPY.pdf
 
 ![Example output](/assets/images/cmdline/tutorial-cmdline-4.4.png)
 
-### C. Gather & Merge Text Notes
+### 4.3 Gather & Merge Text Notes
 
 ***What you will learn:*** how to collect all ```.txt``` files into one place and merge them into a single combined notes file using a new command: ```cat```
 
@@ -186,7 +186,7 @@ cat all_notes/*.txt > all_notes/combined_notes.txt
 
 ![Example output](/assets/images/cmdline/tutorial-cmdline-4.5.png)
 
-### D. Batch Rename
+### 4.4 Batch Rename
 
 **What you will learn:** how to rename files one-by-one for consistent naming rules. This is especially useful for applying chronological order or standardized formats to scanned items.
 
@@ -208,7 +208,7 @@ cat all_notes/*.txt > all_notes/combined_notes.txt
 ![Example output](/assets/images/cmdline/tutorial-cmdline-4.6.png)
 
 
-### D. File Naming Best Practices
+### 4.5 File Naming Best Practices
 
 | Suggestion | Example |
 | ----------- | ----------- |
@@ -218,11 +218,11 @@ cat all_notes/*.txt > all_notes/combined_notes.txt
 | Start with date if chronological | ```1900-05-12_letter.pdf``` |
 | Be consistent | If you use underscores, use them everywhere |
 
->**Apply what you learned:** Pick messy files from sample-archive/ and rename them using these practices.
+>**Apply what you learned:** Pick messy files from sample-archive and rename them using these practices.
 
 ---
 
-## 5. How to debug with ChatGPT (or other generative AI)
+## 5. How to debug with generative AI
 
 When something goes wrong in the Terminal, you can use ChatGPT or another AI tool to help fix the problem. But you’ll only get useful help if you provide the right context.
 
