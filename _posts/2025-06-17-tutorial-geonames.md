@@ -12,7 +12,7 @@ toc_label: "Table of Contents"
 
 A hands-on, beginner-friendly guide to querying historical place data using the GeoNames API. Learn how to search for places by name, extract geographic coordinates, feature types, and alternate names, and save the results for analysis—all through clear Python examples. No prior experience with APIs required; perfect for students and researchers in history or the humanities working with historical maps, gazetteers, or place-based data.
 
-## Prerequisites
+**Prerequisites:**
 
 This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
 
@@ -36,15 +36,15 @@ The **ready-to-run** Jupyter notebook can be downloaded following this [link](ht
 **"Gazetteers"** are structured lists of place names with information about their locations, variants, and historical context. In this tutorial, we will create a small dataset of historical places from the **Trucial Coast** (pre-UAE region) and enrich it using the **GeoNames API**.
 
 ## 2. Objective
-We will:
+In this tutorial you will learn how to:
 - Start from a **CSV** file containing a few historical town names
 - Use the **GeoNames API** to retrieve coordinates and metadata
 - Save the enriched dataset to a new **CSV** file
 
 
-## 3. Setup: Install Required Libraries
+## 3. Install Required Libraries
 
-The libraries you need to install are for this tutorial are:
+The libraries you need to install for this tutorial are:
 
 - **`pandas`**: helps us easily create, manage, and manipulate structured datasets like our gazetteer of historical places
 - **`requests`**: allows us to send HTTP requests to the GeoNames API, so we can enrich our dataset with location adetails and additional information from this online geographic database
@@ -79,7 +79,7 @@ Ras Al Khaimah,	port, Lorimer Gazetteer
 
 Make sure to save `trucial_towns.csv` in the same folder as this notebook file (`.ipynb`) so it can be loaded correctly.
 
-```rubys
+```ruby
 import pandas as pd
 
 # Load input CSV
@@ -102,9 +102,9 @@ To enrich the dataset, the tutorial leverages the free GeoNames API. Before proc
 
 The following code defines the `query_geonames` function which is designed to send a request to the GeoNames API using a given place name. It processes the API's JSON response and extracts relevant information such as latitude, longitude, GeoNames ID, feature class, feature code, and filtered alternate names. The function includes logic to filter out irrelevant alternate names, such as URLs, airport codes (IATA, ICAO, FAAC), postal codes, Wikidata IDs, and short, all-caps codes. 
 
-Remember to replace `yourGeonamesUsername` with your actual GeoNames username.
-
 This function constructs the API request, sends it, and then parses the JSON response to extract and return the desired geographic data and a semicolon-separated string of filtered alternate names. Error handling for requests exceptions is also included.
+
+Remember to replace `yourGeonamesUsername` with your actual GeoNames username.
 
 **Code:**
 
@@ -236,8 +236,8 @@ print(f"Saved enriched dataset to {output_file}")
 
 Sometimes, you might want to find specific types of geographical features within a particular country, rather than searching for a named place globally. The GeoNames API allows you to refine your search using parameters like: 
 - **`country`** (two-letter ISO country code)
-- `**`featureClass`**` (a broad category like 'H' for hydrographic features or 'P' for populated places)
-- **``featureCode`**` (a more specific type within a feature class, like 'RVR' for river or 'LAKE' for lake).
+- **`featureClass`**` (a broad category like 'H' for hydrographic features or 'P' for populated places)
+- **`featureCode`**` (a more specific type within a feature class, like 'RVR' for river or 'LAKE' for lake).
 
 You can get the list of featureCodes that belong to each featureClass [here](https://www.geonames.org/export/codes.html).
 
