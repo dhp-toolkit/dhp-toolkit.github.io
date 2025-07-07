@@ -58,18 +58,14 @@ Data analysis and reproducible workflows are becoming increasingly important in 
 
 ### 2.1 Install Python and Jupyter (Using Anaconda)
 
-**Why Anaconda?**
-
 Anaconda is a free package that installs Python, Jupyter Notebook, and dozens of commonly used libraries in a single download. It’s the easiest way to get started, especially if you’ve never installed Python before.
 
-**Key Definitions**
-
-**conda:** The package manager that comes with Anaconda. You can install additional Python packages with ```conda install <package> or pip install <package>```.
+**conda** is the package manager that comes with Anaconda. You can install additional Python packages with ```conda install <package> or pip install <package>```.
 
 **Instructions:**
 
 1. Download **Anaconda**
-* Go to the Anaconda website:[https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution){:target="_blank" rel="noopener"} 
+* Go to the Anaconda website: [https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution){:target="_blank" rel="noopener"} 
 * Select the **Python 3.x** version for your operating system.
 * Click “Download” and wait for the installer to finish downloading.
 
@@ -88,12 +84,13 @@ Anaconda is a free package that installs Python, Jupyter Notebook, and dozens of
 
 ### 2.2 Launch Jupyter Notebook
 
-1. On Windows or macOS, open **Anaconda Navigator** from your **Start Menu** (Windows) or **Applications folder** (macOS).
+On Windows or macOS, open **Anaconda Navigator** from your **Start Menu** (Windows) or **Applications folder** (macOS).
 
 ![Anaconda Navigator Main Page](/assets/images/jupyter/tutorial-jupyter-2.2.png)
 
-2. In Anaconda Navigator, locate **Jupyter Notebook** and click the **Launch** button.
-3. This will automatically launch your terminal with a script to launch the Jupyter notebook and open a webpage in your default web browser showing the **Jupyter Notebook Dashboard** (often the link starts with ```http://localhost:8888/```).
+In Anaconda Navigator, locate **Jupyter Notebook** and click the **Launch** button.
+
+This will automatically launch your terminal with a script to launch the Jupyter notebook and open a webpage in your default web browser showing the **Jupyter Notebook Dashboard** (often the link starts with ```http://localhost:8888/```).
 
 ![Terminal prompt that gets launched](/assets/images/jupyter/tutorial-jupyter-2.3.png)
 
@@ -108,7 +105,7 @@ When you launch Jupyter Notebook, your browser opens the **Jupyter Dashboard**, 
 * **Create Notebooks Anywhere:** Once you’ve navigated to the folder where you want to work, click New → Python 3 (or another option) in the top-right to create a notebook that will be saved in that folder and locally in your computer (see below for detailed instructions on how to create a new notebook). You can also create text files, new folders, or open a Terminal from here.
 * **Monitor Running Sessions:** Click the Running tab to view and shut down any open notebooks or terminals.
 
-#### How to Save a Notebook in a Different Folder
+#### 2.2.1 How to Save a Notebook in a Different Folder
 
 Launching Jupyter Notebook from Anaconda will open the Dashboard in your **user’s home directory** by default (e.g., ```C:\Users\YourUsername``` on Windows or ```/Users/YourUsername on macOS/Linux```).
 
@@ -124,7 +121,7 @@ In the Dashboard’s file list, click into the folder you created (e.g., ```MyJu
 
 ### 2.3. Create and Navigate a New Notebook
 
-1. Create a New Notebook
+**1. Create a New Notebook**
 
 In the Dashboard, click **New → Python 3 (pykernel)**. This will open a new browser tab with a notebook named **Untitled**.
 
@@ -132,24 +129,33 @@ In the Dashboard, click **New → Python 3 (pykernel)**. This will open a new br
 
 You can click on “Untitled” to rename the notebook. For example, rename it to ```hello_world.ipynb```.
 
-2. Interface Overview
+**2. Interface Overview**
 
 **Menu Bar** (File, Edit, View, Insert, Cell, Kernel, etc.)
-Provides dropdown menus for common actions—e.g., creating or saving notebooks (File), undo/redo (Edit), toggling line numbers (View), inserting new cells (Insert), running or restarting the notebook’s computational engine (Kernel), and managing individual cells (Cell).
+
+Provides dropdown menus for common actions such as:
+- creating or saving notebooks (File), 
+- undo/redo (Edit), 
+- toggling line numbers (View), 
+- inserting new cells (Insert), 
+- running or restarting the notebook’s computational engine (Kernel), 
+- managing individual cells (Cell).
 
 **Toolbar** (Save, Add Cell, Run, Stop, Restart, etc.)
+
 Contains buttons for quick access to frequent tasks:
-💾 Save: Save the current notebook locally in the directory specified in the Dashboard.
-➕ Add Cell: Insert a new cell below the selected one.
-▶️ Run: Execute the selected cell.
-⏹️ Stop: Interrupt a running cell.
-🔄 Restart: Restart the kernel (clear all computations).
+
+- 💾 Save: Save the current notebook locally in the directory specified in the Dashboard.
+- ➕ Add Cell: Insert a new cell below the selected one.
+- ▶️ Run: Execute the selected cell.
+- ⏹️ Stop: Interrupt a running cell.
+- 🔄 Restart: Restart the kernel (clear all computations).
 
 **Code/Markdown Cells** (empty boxes awaiting input)
 * **Code Cells:** Write and execute Python code. When you run a code cell, the kernel processes it and displays output directly beneath.
 * **Markdown Cells:** Write formatted text (headings, lists, links, etc.) using Markdown syntax. When run, they render as formatted notes or explanations.
 
-3. Add and Run Cells
+**3. Add and Run Cells**
 
 * By default, you’ll see one empty cell labeled ```In [ ]:```. This is a **code cell**. Click inside the cell and type: ```print("Hello, World!")``` (or any other instruction)
 * To run the cell, do one of the following:
@@ -160,7 +166,7 @@ Contains buttons for quick access to frequent tasks:
 ![Hello, World example](/assets/images/jupyter/tutorial-jupyter-2.6.png)
 
 
-4. Insert a New Markdown Cell
+**4. Insert a New Markdown Cell**
 * Click on the **+** (plus) button in the toolbar to insert a new cell below.
 * By default, it’s a code cell. Switch it to **Markdown** by clicking on the **dropdown** that says “Code” and selecting Markdown. The dropdown can be located here:
 
@@ -180,7 +186,7 @@ We wrote a simple Python command: `print("Hello, World!")`.
 
 ### 2.4. Save and Shut Down the Notebook
 
-1. Save Your Notebook
+**1. Save Your Notebook**
 * Click the ***💾 (“Save”)*** button on the toolbar or press ```Ctrl + S``` (```Cmd + S``` on macOS).
 * You’ll notice a small **“*”** next to the filename disappear when it’s fully saved.
 
@@ -188,7 +194,7 @@ We wrote a simple Python command: `print("Hello, World!")`.
 However, it is still recommended to manually save your work by running Ctrl + S on Windows or Cmd + S on Mac as this is more immediate than waiting for the autosave interval.
 
 
-2. Close and Shut Down the Notebook
+**2. Close and Shut Down the Notebook**
 * To close just the browser tab, click the **×** on the tab.
 * But this alone doesn’t stop the kernel. To shut down the kernel, go back to the Dashboard tab, find your ```hello_world.ipynb``` under the **Running** tab, select it, then click **Shutdown** (this button is located on the toolbar on top of the Dashboard)
 
@@ -199,10 +205,10 @@ However, it is still recommended to manually save your work by running Ctrl + S 
 ## 3. Extensions for Advanced Users
 
 Once you’ve mastered the basics above, here are the next steps you can explore:
-1. **Markdown Formatting**
+**1. Markdown Formatting**
 Write headings (```# Heading 1, ## Heading 2```), bullet lists (```- item```), and even embed images. Historians can use this to document sources and add annotations directly in the Notebook.
 
-2. **Installing Additional Packages**
+**2. Installing Additional Packages**
 If you want to analyze CSV files or create charts, you can install libraries such as **pandas** and **matplotlib** by running in the terminal: ```conda install pandas matplotlib```
 
 Then in a code cell inside your **Jupyter Notebook**:
@@ -214,7 +220,7 @@ import matplotlib.pyplot as plt
 
 These libraries let you import data, manipulate it, and visualize it—all within the same document.
 
-3. **Using Jupyter Extensions**
+**3. Using Jupyter Extensions**
 
 **nbextensions**: Add features like spell-checking or code folding. 
 
@@ -252,7 +258,7 @@ People you shared it with would be able to view your workflow without running an
 
 Below are some common issues you might encounter when working with Jupyter Notebook and suggested solutions:
 
-1. **Notebook Won’t Launch**
+**1. Notebook Won’t Launch**
 
 **Issue:** Typing ```jupyter notebook``` in the Terminal/Anaconda Prompt doesn’t open a browser window or gives an error.
 **Possible Causes & Fixes:** 
