@@ -257,6 +257,6 @@ I’m trying to move one image from the images/ folder into a scans/ folder. Wha
 ![Example output](/assets/images/cmdline/tutorial-cmdline-5.3.png)
 
 
-## 7. Resources & Readings
+## 7. Further Resources
 * Kate Thornhill & Gabriele Hayden, “Making File Names for Digital Exhibits”
 * Programming Historian: [Introduction to the Bash Command Line](https://programminghistorian.org/en/lessons/intro-to-bash)
