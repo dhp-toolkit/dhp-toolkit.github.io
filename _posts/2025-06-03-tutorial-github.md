@@ -47,18 +47,18 @@ Publishing a professional website at ```your‑username.github.io``` with minima
 
 > **Tip for classrooms:** Students can sign up with an academic email and request the free [GitHub Education](https://education.github.com/pack){:target="_blank" rel="noopener"} benefits bundle, which includes access to a wide range of developer tools and resources.
 
-## 3.  Setting up GitHub Account, GitHub Desktop  & Visual Studio Code
+## 3. Setting up GitHub Account, GitHub Desktop  & Visual Studio Code
 
-### Step 1. Sign Up for GitHub
+### 2.1 Sign Up for GitHub
 1. Navigate to [github.com](https://github.com/){:target="_blank" rel="noopener"} → Sign up.
 2. Choose a username (this will be visible in your site URL later).
 3. Verify your email & complete the short survey.
 
-### Step 2. Download GitHub Desktop
+### 2.2 Download GitHub Desktop
 1. Go to [desktop.github.com](https://desktop.github.com/){:target="_blank" rel="noopener"} and download for your OS.
 2. Install and sign in with the account you just created.
 
-### Step 3. Download MS Visual Studio Code
+### 2.3 Download MS Visual Studio Code
 1. Go to [code.visualstudio.com/download](https://code.visualstudio.com/download){:target="_blank" rel="noopener"} and download it for your OS via the .zip method. The .zip install is good for beginners, while advanced users can use other installation methods like the command line.
 2. Open the downloaded zip file and follow the instructions.
 
@@ -88,7 +88,7 @@ GitHub allows one website repository per user at the ```your-username.github.io`
 * Just name the new repository anything else (e.g., digital-archive-project) and enable GitHub Pages from its settings.
 * Your project site will be published at: ```https://your-username.github.io/digital-archive-project/```
 
-### Step 1. Choose a Template Repository
+### 4.1 Choose a Template Repository
 1. In a browser, open the template repository you want to use. For example, one of the templates you can use is the  Academic Pages template available at [https://github.com/academicpages/academicpages.github.io](https://github.com/academicpages/academicpages.github.io){:target="_blank" rel="noopener"} .
 2. Confirm it displays a green Use this template button (templates are specially flagged by their authors).
 
@@ -99,13 +99,13 @@ You can look for more Jekyll-based templates here:
 * [https://jamstackthemes.dev/ssg/jekyll/](https://jamstackthemes.dev/ssg/jekyll/){:target="_blank" rel="noopener"}
 * [https://jekyll-themes.com/](https://jekyll-themes.com/){:target="_blank" rel="noopener"}
 
-### Step 2. Generate Your New Repository
+### 4.2 Generate Your New Repository
 1. On the template repository page, click **Use this template → Create a new repository**.
 2. Name it ```your‑username.github.io``` (replace *your‑username* with your GitHub handle). This naming convention signals GitHub Pages to publish to that URL automatically.
 3. Keep the repo **Public** (free Pages sites require public visibility).
 4. Click **Create repository** from template. This would copy all the code and files provided by the template into your repository.
 
-### Step 3. Clone the Repository Locally with GitHub Desktop
+### 4.3 Clone the Repository Locally with GitHub Desktop
 1. In the success screen, click on **Code**, then click **Open with GitHub Desktop**. Approve the browser prompt.
 2. Choose a local folder where you’ll keep website files.
 3. Click **Clone**.
@@ -157,7 +157,7 @@ Don’t worry if the folders look slightly different depending on your template.
 
 Before editing anything, it’s helpful to publish the website once and see what it looks like. This will help you understand which parts of the site map correspond to which files.
 
-### Step 1. Enable Pages (Only Once)
+### 6.1 Enable Pages (Only Once)
 1. Go to your repository on **GitHub.com → Settings → Pages**.
 2. Under Build and deployment, choose Deploy from a branch.
 3. For **Branch**, pick ```main``` and ```/ (root)``` folder. Click **Save**.
@@ -194,7 +194,7 @@ Now that permissions are fixed, you need to trigger the **GitHub Actions** tool 
 * After a few seconds, your site will be live and you can get the link by navigating to **Settings → Pages**
 
 
-### Step 2. Compare Website to Markdown Files
+### 6.2 Compare Website to Markdown Files
 * Open your published site in a browser on the link ```https://your‑username.github.io/```.
 * Click on a page like “About” or “Home.”
 * Go back to your local folder on your computer and find the matching ```.md``` file (for example, ```about.md``` or ```index.md```).
@@ -291,7 +291,7 @@ Now that you know how to safely find and edit your site’s content, let’s lea
 
 Git takes snapshots (commits) of your project over time, so you can revert mistakes and see who changed what.
 
-### Step 1. Commit Your Edits
+### 8.1 Commit Your Edits
 
 1. In **GitHub Desktop**, the left sidebar lists changed files.
 2. Review the difference. The part in red shows the old version of your code, the part in green - the new version. 
@@ -303,13 +303,13 @@ Git takes snapshots (commits) of your project over time, so you can revert mista
 ![How Changes are displayed on Github Desktop](/assets/images/github/tutorial-github-8.1.png)
 
 
-### Step 2. Push (Publish) to GitHub.com
+### 8.2 Push (Publish) to GitHub.com
 
 After committing, click **Push origin** (top toolbar). Your commits travel to the online copy of the repo.
 
 ![Push origin button](/assets/images/github/tutorial-github-8.1.png)
 
-### Step 3. Check If Changes Have Been Reflected on the Website
+### 8.3 Check If Changes Have Been Reflected on the Website
 
 * Navigate to your **GitHub repository** and reload the page.
 * Your latest commit should be displayed under the Code button. 
@@ -325,7 +325,7 @@ Successful Commit:
 Note:
 If there’s a red X mark displayed next to your commit, it means there was a build error. Ideally, if you only modify Markdown files, you shouldn’t face this problem, but if you still get this build error, you can try to resolve it using Generative AI such as ChatGPT by pasting your error message (which you can obtain by clicking on that commit and navigating to the error message)
 
-### Step 4. View History or Revert
+### 8.4 View History or Revert
 * Use the **History** tab in GitHub Desktop to browse old commits.
 * Right‑click a file on Github Desktop → click **Discard changes** to undo **before committing**. After committing, changes are saved — but you can undo the most recent commit as long as it hasn't been pushed online yet. If it was already pushed, simply edit the file again with the changes you want to make, then save and commit those new changes.
 
@@ -361,7 +361,7 @@ If you switch to another Jekyll theme later, just confirm which front-matter fie
 
 ---
 
-## 12. How to Delete a Blog Post
+## 10. How to Delete a Blog Post
 
 To remove a post from your site, you need to delete its Markdown file and make sure any references to it (such as archive listings or navigation entries) are also cleaned up. For Academic Pages, follow these steps:
 
