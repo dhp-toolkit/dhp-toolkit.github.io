@@ -20,7 +20,8 @@ A hands-on, beginner-friendly tutorial for historians to install and launch Jupy
 * Learn basic terminology (e.g., kernel, cell, IDE) so you feel confident exploring further.
 
 **Prerequisites:**
-This tutorial assumes a basic understanding of how to work with the Command Line. We strongly recommend that you take the ***Using the Command Line to Organize Your Research Files*** tutorial before taking this tutorial.
+
+This tutorial assumes a basic understanding of how to work with the Command Line. We strongly recommend that you take the *Using the Command Line to Organize Your Research Files* tutorial before taking this tutorial.
 
 ---
 
