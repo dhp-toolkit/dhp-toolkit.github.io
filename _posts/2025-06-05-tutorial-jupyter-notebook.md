@@ -205,6 +205,7 @@ However, it is still recommended to manually save your work by running Ctrl + S 
 ## 3. Extensions for Advanced Users
 
 Once you’ve mastered the basics above, here are the next steps you can explore:
+
 **1. Markdown Formatting**
 Write headings (```# Heading 1, ## Heading 2```), bullet lists (```- item```), and even embed images. Historians can use this to document sources and add annotations directly in the Notebook.
 
@@ -233,7 +234,7 @@ jupyter contrib nbextension install --user
 
 Once installed, you’ll have a new **“Nbextensions”** tab in the Dashboard to turn on helpful tools.
 
-4. **Sharing Notebooks**
+**4. Sharing Notebooks**
 
 Export your notebook as a PDF or HTML via **File → Download as → PDF** (requires extra setup) or **HTML** (no extra installation).
 People you shared it with would be able to view your workflow without running any code.
@@ -261,37 +262,41 @@ Below are some common issues you might encounter when working with Jupyter Noteb
 **1. Notebook Won’t Launch**
 
 **Issue:** Typing ```jupyter notebook``` in the Terminal/Anaconda Prompt doesn’t open a browser window or gives an error.
+
 **Possible Causes & Fixes:** 
 * You’re in a directory with no write permissions. Try running ```jupyter notebook``` from your Home or Documents folder.
 * Another process is already using port 8888. Run ```jupyter notebook --port=8890``` (or any free port).
 * Environment variables didn’t update after installation. Close and reopen your Terminal/Anaconda Prompt before retrying.
 
-2. **Kernel Issues (e.g., “Kernel Busy,” “No Kernel Found”)**
+**2. Kernel Issues (e.g., “Kernel Busy,” “No Kernel Found”)**
 
 **Issue:** The circle next to “Kernel” stays solid (busy) or you see “No Kernel” in the top right.
+
 **Possible Causes & Fixes:**
 * The Python environment in your system PATH doesn’t match the one Jupyter expects. In Anaconda Prompt (Windows) or a Terminal (macOS/Linux), activate the base environment with ```conda activate base``` before launching.
 * You installed Jupyter without activating its environment—always run ```conda activate base``` (or your chosen environment) first.
 * If you previously created another environment (e.g., ```conda create -n hist_env python=3.9```), you must run ```conda activate hist_env``` and then ```conda install jupyter``` within that environment.
 
 
-3. **“Module Not Found” Errors**
+**3. “Module Not Found” Errors**
 
 **Issue:** Running ```import pandas as pd``` shows ```ModuleNotFoundError: No module named 'pandas'```.
+
 **Fix:** Install the missing package by running either: ```conda install pandas```  or
 ```pip install pandas``` in your active environment. Then restart the kernel (Kernel → Restart).
 
 
-4. **Notebook Autosaves Too Frequently or Not at All**
+**4. Notebook Autosaves Too Frequently or Not at All**
 
-**Tip:** Jupyter autosaves every few minutes by default. You can change autosave settings under **File → Save and Checkpoint** or adjust in **View → Cell Toolbar → Edit Metadata**. If Jupyter isn’t autosaving, manually save often (```Ctrl + S``` / ```Cmd + S```).
+**Tip:** Jupyter autosaves every few minutes by default. You can change autosave settings under File → Save and Checkpoint or adjust in View → Cell Toolbar → Edit Metadata. If Jupyter isn’t autosaving, manually save often (```Ctrl + S``` / ```Cmd + S```).
 
-5. **Browser Doesn’t Show Images or Plots**
+**5. Browser Doesn’t Show Images or Plots**
 
 **Issue:** You run plotting code (e.g., with ```matplotlib```) but see no figure.
-* :**Fix::** Ensure you include ```%matplotlib``` inline at the top of your notebook. This “magic command” tells Jupyter to display plots in the output cells.
 
-6. **Accidentally Deleted a Cell:**
+**Fix:** Ensure you include ```%matplotlib``` inline at the top of your notebook. This “magic command” tells Jupyter to display plots in the output cells.
+
+**6. Accidentally Deleted a Cell:**
 
 **Tip:** In Command mode, press Z to undo deleting a cell. This only works until you close the notebook.
 
@@ -301,33 +306,33 @@ Below are some common issues you might encounter when working with Jupyter Noteb
 
 To continue learning, explore these beginner-friendly guides and references:
 
-1. **Official Jupyter Documentation**
+**1. Official Jupyter Documentation**
 
 * Jupyter Project: [https://jupyter.org/](https://jupyter.org/){:target="_blank" rel="noopener"} 
 
 * User Guide (covers notebooks, JupyterLab, widgets):[https://jupyter.readthedocs.io/en/latest/](https://jupyter.readthedocs.io/en/latest/){:target="_blank" rel="noopener"} 
 
-2. **Anaconda Documentation**
+**2. Anaconda Documentation**
 
 * Installation and managing environments:[https://docs.anaconda.com/anaconda/](https://docs.anaconda.com/anaconda/){:target="_blank" rel="noopener"}
 
-3. **Python Basics**
+**3. Python Basics**
 
 * Official Python Tutorial (beginner level):[https://docs.python.org/3/tutorial/](https://docs.python.org/3/tutorial/){:target="_blank" rel="noopener"}
 
 * W3Schools Python Tutorial (interactive examples):[https://www.w3schools.com/python/](https://www.w3schools.com/python/){:target="_blank" rel="noopener"}
 
-4. **Markdown Cheat Sheet**
+**4. Markdown Cheat Sheet**
 
 * Basic Markdown syntax for formatting text cells:[https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/){:target="_blank" rel="noopener"}
 
-5. **Data Analysis with Python**
+**5. Data Analysis with Python**
 
 * “Pandas Documentation: Getting Started” (for tabular data):[https://pandas.pydata.org/docs/getting_started/index.html](https://pandas.pydata.org/docs/getting_started/index.html){:target="_blank" rel="noopener"}
 
 * “Matplotlib: Visualization With Python” (basic plotting):[https://matplotlib.org/stable/tutorials/introductory/pyplot.html](https://matplotlib.org/stable/tutorials/introductory/pyplot.html){:target="_blank" rel="noopener"}
 
-6. **Forums & Help Sites**
+**6. Forums & Help Sites**
 
 * Stack Overflow: Search for “Jupyter Notebook [your error message]”.
 
