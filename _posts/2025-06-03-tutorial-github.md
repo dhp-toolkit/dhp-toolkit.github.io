@@ -76,7 +76,7 @@ Publishing a professional website at ```your‑username.github.io``` with minima
 
 GitHub allows one website repository per user at the ```your-username.github.io``` address. You can still make unlimited project sites under different names, but for your homepage, only one repo can be tied to that web address.
 
-**What to do if I already have a repository named ````your-username.github.io```?** If you already have a repository named ```your-username.github.io``` that has a corresponding website published via GitHub Pages, what you can do is:
+**What to do if I already have a repository named ```your-username.github.io```?** If you already have a repository named ```your-username.github.io``` that has a corresponding website published via GitHub Pages, what you can do is:
 
 **Option 1: Delete the Existing Repository**
 * If you want to start fresh, you can delete the current repository and create a new one using a different template.
@@ -184,8 +184,8 @@ Many templates, including the **Academic Pages** template we’re using, use a t
 
 2. Trigger the Build
 Now that permissions are fixed, you need to trigger the **GitHub Actions** tool to start building the site. Do one of these:
-* Easiest: Go to the repo home page, open any file (like ```README.md```), click the pencil ✏️ to edit, make a tiny change (like adding a space), and click Commit changes.
-* OR: Go to the Actions tab → click on the Deploy workflow → click the “Run workflow” button.
+* Easiest: Go to the repo home page, open any file (like ```README.md```), click the pencil ✏️ to edit, make a tiny change (like adding a space), and click **Commit changes**.
+* Alternative: Go to the Actions tab → click on the Deploy workflow → click the **Run workflow** button.
 
 
 3. Wait for the Build to Finish
