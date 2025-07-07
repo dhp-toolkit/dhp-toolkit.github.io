@@ -36,7 +36,7 @@ You can also ask general questions like:
 
 ---
 
-## 1. Background for Historians
+## 1. Introduction
 
 Data analysis and reproducible workflows are becoming increasingly important in digital history. Jupyter Notebook is a tool that lets you combine text, code, and output (tables, charts, etc.) in a single, shareable document. You can annotate your thought process in plain language (using “Markdown” text cells) alongside executable code cells, so that colleagues or students can follow every step of your analysis.
 
