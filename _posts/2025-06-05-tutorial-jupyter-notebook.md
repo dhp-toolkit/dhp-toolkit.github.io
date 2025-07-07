@@ -21,7 +21,7 @@ A hands-on, beginner-friendly tutorial for historians to install and launch Jupy
 
 **Prerequisites:**
 
-This tutorial assumes a basic understanding of how to work with the Command Line. We strongly recommend that you take the *Using the Command Line to Organize Your Research Files* tutorial before taking this tutorial.
+This tutorial assumes a basic understanding of how to work with the Command Line. We strongly recommend that you take the *"Tidy Archives: Using the Command Line to Organize Your Research Files"* tutorial before taking this tutorial.
 
 ---
 
