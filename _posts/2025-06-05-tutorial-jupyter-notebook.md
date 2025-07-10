@@ -210,11 +210,11 @@ However, it is still recommended to manually save your work by running Ctrl + S 
 
 Once you’ve mastered the basics above, here are the next steps you can explore:
 
-### Markdown Formatting
+### 3.1 Markdown Formatting
 
 Write headings (```# Heading 1, ## Heading 2```), bullet lists (```- item```), and even embed images. Historians can use this to document sources and add annotations directly in the Notebook.
 
-### Installing Additional Packages
+### 3.2 Installing Additional Packages
 
 If you want to analyze CSV files or create charts, you can install libraries such as **pandas** and **matplotlib** by running in the terminal: ```conda install pandas matplotlib```
 
@@ -227,7 +227,7 @@ import matplotlib.pyplot as plt
 
 These libraries let you import data, manipulate it, and visualize it—all within the same document.
 
-### Using Jupyter Extensions
+### 3.3 Using Jupyter Extensions
 
 **nbextensions**: Add features like spell-checking or code folding. 
 
@@ -240,7 +240,7 @@ jupyter contrib nbextension install --user
 
 Once installed, you’ll have a new **“Nbextensions”** tab in the Dashboard to turn on helpful tools.
 
-### Sharing Notebooks
+### 3.4 Sharing Notebooks
 
 Export your notebook as a PDF or HTML via **File → Download as → PDF** (requires extra setup) or **HTML** (no extra installation).
 People you shared it with would be able to view your workflow without running any code.
@@ -302,7 +302,7 @@ Below are some common issues you might encounter when working with Jupyter Noteb
 
 **Fix:** Ensure you include ```%matplotlib``` inline at the top of your notebook. This “magic command” tells Jupyter to display plots in the output cells.
 
-### 5.6 Accidentally Deleted a Cell:
+### 5.6 Accidentally Deleted a Cell
 
 **Tip:** In Command mode, press Z to undo deleting a cell. This only works until you close the notebook.
 
