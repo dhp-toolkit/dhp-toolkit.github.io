@@ -13,7 +13,11 @@ toc_label: "Table of Contents"
 
 In this tutorial we will learn how to use **spaCy** to identify place names and people's names from the historical document `AgreementWithTrucialChiefs.txt`.
 
-### Step 1: Install Dependencies
+**Prerequisites:**
+
+This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
+
+### 1. Install Dependencies
 
 First, you'll need to install **spaCy** and download an English language model. To install them, run the below commands in your terminal:
 
@@ -23,16 +27,18 @@ First, you'll need to install **spaCy** and download an English language model. 
 ```
 
 
-### Step 2: Set Up and Load SpaCy Model
+### 2. Set Up and Load SpaCy Model
 
 We need to import the necessary libraries and load the pre-trained `spaCy` English language model. This model will be used to identify entities in your text. We'll also import `re` for regular expression operations needed in text cleaning.
 
-### Explanation:
+**Explanation:**
 
 - `import spacy`: Imports the main spaCy library.
 - `import re`: Imports the regular expression module, which is very useful for flexible text manipulation.
 - `nlp = spacy.load("en_core_web_sm")`: Loads the small English language model. This model includes components for tokenization, POS tagging, dependency parsing, and, importantly, named entity recognition.
 - The `try-except` block ensures that if the model isn't found (meaning it wasn't downloaded or is in an inaccessible location), the notebook provides a helpful message instead of crashing.
+
+**Code:**
 
 ```ruby
 
@@ -54,7 +60,7 @@ except OSError:
 ```
 
 
-## Step 2: Define Text Cleaning Function
+## 3. Define Text Cleaning Function
 
 Before performing NER, it's a good practice to clean your raw text. However, for NER, "cleaning" should be conservative. We want to remove noise (like OCR errors or special tags) without removing information crucial for NER, such as capitalization (which helps identify proper nouns) or sentence structure.
 
@@ -63,7 +69,7 @@ This function will:
 - Normalize whitespace by replacing multiple spaces, tabs, and newlines with a single space.
 
 
-### Explanation:
+**Explanation:**
 
 - The function takes `text_content` as input.
 - It uses `replace()` to target specific strings that are noise.
@@ -71,9 +77,12 @@ This function will:
 - `.strip()` removes leading/trailing whitespace. This ensures consistent spacing.
 
 **Important**: Avoid aggressive cleaning for NER, such as:
-- Lowercasing (NER relies on capitalization)
-- Removing all punctuation (NER relies on sentence boundaries)
-- Removing stopwords (context is important for NER)
+* Lowercasing (NER relies on capitalization)
+* Removing all punctuation (NER relies on sentence boundaries)
+* Removing stopwords (context is important for NER)
+
+
+**Code:**
 
 ```ruby
 
@@ -93,15 +102,18 @@ def clean_text_for_ner(text_content):
 ```
 
 
-### Step 4: Define NER Execution Function
+### 4. Define NER Execution Function
 
 The `perform_ner()` function below will take the cleaned text and the loaded spaCy model, then run the NER process. It will extract all identified PERSON (people's names) and GPE (geopolitical entity) / LOC (location) entities. These lists will be "raw" at this stage, meaning they might still contain some false positives before post-processing.
 
-#### Explanation:
+**Explanation:**
 
 - `doc = nlp_model(text_to_process)`: This is where spaCy processes the text and identifies entities.
 - `doc.ents`: This is a list of all identified entities in the doc object.
 - The loop iterates through these entities, checking their `label_` (e.g., "PERSON", "GPE", "LOC") and appends the entity's text (`ent.text`) to the appropriate raw list.
+
+
+**Code:**
 
 ```ruby
 def perform_ner(text_to_process, nlp_model):
@@ -124,9 +136,11 @@ def perform_ner(text_to_process, nlp_model):
 ```
 
 
-### Step 5: Run NER
+### 5. Run NER
 
 Let's now put all the functions together: read the file, clean the text, perform NER.
+
+**Code:**
 
 ```ruby
 
@@ -186,13 +200,13 @@ Identified place names:
 ![Output](/assets/images/spacy/tutorial_spacy_5.2.png)
 
 
-### Step 6: Do Post-Processing for NER Output
+### 6. Do Post-Processing for NER Output
 
 You can see from the above result that spaCy's English Language model identified some entities incorrectly. NER models can sometimes make mistakes or pick up non-names (like titles, abbreviations, or common words), especially when working with historical documents. That's why it's important to do post-processing to refine the results. 
 
 The `post_process_ner_output()` function below will filter the raw entities based on observed patterns of incorrect classifications. This step is highly customizable based on the specific noise you find in your document type.
 
-#### Explanation:
+**Explanation:**
 
 - `exclude_patterns`: These lists are populated with the terms we've observed to be misclassified. They are defined separately for PERSON and PLACE types.
 - `min_length`: Helps filter out very short, often meaningless, extractions.
@@ -206,6 +220,8 @@ The `post_process_ner_output()` function below will filter the raw entities base
 - Specific person-related cleanups (like handling "C.I.E." within a name or removing trailing punctuation) are included.
   
 This function needs iterative refinement. As you review your output, if you see new types of incorrect entries, you can update the `exclude_patterns` lists.
+
+**Code:**
 
 ```ruby
 
@@ -307,9 +323,11 @@ else:
 
 ![Output](/assets/images/spacy/tutorial_spacy_6.1.png)
 
-### Step 7: Saved Output as TXT
+### 7. Saved Output as TXT
 
 Below is the code to save the identified people and place names as TXT files for further analysis.
+
+**Code:**
 
 ```ruby
 
@@ -333,7 +351,7 @@ print(f"Identified place names saved to '{output_file_places}'")
 
 ![Output](/assets/images/spacy/tutorial_spacy_7.1.png)
 
-### Next Steps
+### 8. Next Steps
 
 Steps you can take for further improvement:
 
