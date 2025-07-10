@@ -75,7 +75,7 @@ except OSError:
 ```
 
 
-## 3. Define Text Cleaning Function
+### 3. Define Text Cleaning Function
 
 Before performing NER, it's a good practice to clean your raw text. However, for NER, "cleaning" should be conservative. We want to remove noise (like OCR errors or special tags) without removing information crucial for NER, such as capitalization (which helps identify proper nouns) or sentence structure.
 
