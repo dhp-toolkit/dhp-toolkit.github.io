@@ -15,7 +15,7 @@ In this tutorial we will learn how to use **spaCy** for named endidity recogniti
 
 **Prerequisites:**
 
-This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
+This tutorial assumes a basic understanding of how to work with Jupyter Notebook and an ablity to write and follow-through a code written in Python. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
 
 **Before you begin:**
 
@@ -37,14 +37,14 @@ The **ready-to-run** Jupyter notebook can be downloaded following this [link](ht
 First, you'll need to install **spaCy** and download an English language model. To install them, run the below commands in your terminal:
 
 ```ruby
-# pip install spacy
-# python -m spacy download en_core_web_sm
+pip install spacy
+python -m spacy download en_core_web_sm
 ```
 
 
 ### 2. Set Up and Load SpaCy Model
 
-We need to import the necessary libraries and load the pre-trained `spaCy` English language model. This model will be used to identify entities in your text. We'll also import `re` for regular expression operations needed in text cleaning.
+We need to import the necessary libraries and load the pre-trained **`spaCy`** English language model. This model will be used to identify entities in your text. We'll also import the module named **`re`** for regular expression operations needed in text cleaning.
 
 **Explanation:**
 
@@ -79,7 +79,7 @@ except OSError:
 
 Before performing NER, it's a good practice to clean your raw text. However, for NER, "cleaning" should be conservative. We want to remove noise (like OCR errors or special tags) without removing information crucial for NER, such as capitalization (which helps identify proper nouns) or sentence structure.
 
-This function will:
+In the case of our document, our function should:
 - Remove specific known artifacts like "[unclear]" tags.
 - Normalize whitespace by replacing multiple spaces, tabs, and newlines with a single space.
 
