@@ -11,11 +11,26 @@ toc_sticky: true
 toc_label: "Table of Contents"
 ---
 
-In this tutorial we will learn how to use **spaCy** to identify place names and people's names from the historical document `AgreementWithTrucialChiefs.txt`.
+In this tutorial we will learn how to use **spaCy** for named endidity recognition from the historical document `AgreementWithTrucialChiefs.txt`.
 
 **Prerequisites:**
 
 This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
+
+**Before you begin:**
+
+You can follow this tutorial in one of two ways:
+
+- Download and run the notebook directly on your computer using Jupyter (e.g., through Anaconda or any Python environment that supports notebooks), or
+- Create a new Jupyter notebook and copy-paste the code and explanations step-by-step as you follow along. This lets you write and test your own code interactively.
+
+Choose whichever method you’re most comfortable with — both will work just fine!
+
+The **ready-to-run** Jupyter notebook can be downloaded following this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/NamedEntityRecognition.ipynb){:target="_blank" rel="noopener"}. 
+
+> To download the file following the above link, click on the 3 dots on the upper-right corner which displays **'More file actions'**, then click on the **Download** button.
+![Screenshot of the download button](/assets/images/geonames/tutorial-geonames-1.1.png)
+
 
 ### 1. Install Dependencies
 
