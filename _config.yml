@@ -59,7 +59,7 @@ plugins:
 
 author:
   name   : "Digital History Pedagogy Toolkit"
-  avatar : "/assets/images/bio-photo.jpg"
+  avatar: "/assets/images/DPTavatar.png"
   bio    : "Methods, Modules, and Code for the Middle East."
   links:
   - label: "Contact"
