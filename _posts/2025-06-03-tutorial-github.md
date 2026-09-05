@@ -25,6 +25,8 @@ You can also ask general questions like:
 
 *“What does this file do?” or “How do I find my Markdown files?”*
 
+A note on privacy and security: Before sharing an error message or screenshot with a generative AI tool, check that it does not contain passwords, API keys, private repository content, personal information, or restricted research data. Never paste authentication credentials into a chatbot.
+
 ---
 
 ## 1. Why GitHub for Historians?
@@ -75,6 +77,10 @@ Publishing a professional website at ```your‑username.github.io``` with minima
 **How is a website linked to a repository?** GitHub Pages automatically turns the contents of a repository named ```your-username.github.io``` into a live website at that exact URL. The name must match your GitHub username exactly.
 
 GitHub allows one website repository per user at the ```your-username.github.io``` address. You can still make unlimited project sites under different names, but for your homepage, only one repo can be tied to that web address.
+
+**Editing directly on GitHub:**
+
+For simple website edits, you do not need to install GitHub Desktop or work with files locally. Open the file you want to change in your GitHub repository, click the pencil icon to edit it, and select Commit changes when you are finished. This is often the easiest option for small text edits. GitHub Desktop and a local text editor become useful when you are making larger changes, working across multiple files, or want to maintain a local copy of the project.
 
 **What to do if I already have a repository named ```your-username.github.io```?** If you already have a repository named ```your-username.github.io``` that has a corresponding website published via GitHub Pages, what you can do is:
 
@@ -160,7 +166,7 @@ Before editing anything, it’s helpful to publish the website once and see what
 ### 6.1 Enable Pages (Only Once)
 1. Go to your repository on **GitHub.com → Settings → Pages**.
 2. Under Build and deployment, choose Deploy from a branch.
-3. For **Branch**, pick ```main``` and ```/ (root)``` folder. Click **Save**.
+3. For Branch, select the branch that contains your website files—usually main in newer repositories, although older repositories may use master—and select / (root) unless your site files are stored in a /docs folder. Click Save.
 
 > **Note:** If the **Save** button is inactive or if GitHub Pages is already enabled for a branch, it means your site is likely already configured to deploy from that branch. You can verify this by checking the "GitHub Pages" section for a live site link.
 
@@ -169,9 +175,9 @@ Wait 1–2 minutes. A green banner will show saying your site will be live at ``
 Every time you **push** new commits, GitHub automatically rebuilds and publishes the site.
 
 
-#### If the button to Publish doesn’t appear
+#### If your template uses GitHub Actions
 
-Many templates, including the **Academic Pages** template we’re using, use a tool called **GitHub Actions** to build your website and publish it to a special branch called ```gh-pages```. But by default, GitHub doesn’t give this tool permission to make changes — so the build fails and the website never appears.
+Some website templates use GitHub Actions rather than publishing directly from a branch. If your template includes a GitHub Actions deployment workflow and the site does not build, first open the repository’s Actions tab and check the specific error message. The steps below describe one common configuration used by the Academic Pages template; other templates may use different deployment settings.
 
 **Step-by-Step Fix**
 1. Give GitHub Actions Permission to Publish
@@ -407,7 +413,7 @@ If you no longer want to keep your website live or want to start over, you can d
 | ----------- | ----------- | ----------- |
 | Page returns **404 Not Found** | GitHub Pages hasn’t finished building yet | Wait 1–2 minutes and refresh the page. You can also check the **Actions** tab in your repository for build errors. |
 | Images not showing | File path is incorrect or image isn’t in the ```assets/``` or ```images/``` folder | Double-check that the image file name matches exactly (watch for .jpg vs .JPG). Use lowercase letters and avoid spaces. |
-| Changes not appearing on website | You forgot to **push** your changes | You forgot to push your changes |
+| Changes not appearing on website | You forgot to **push** your changes 
 | Website layout looks broken | You may have accidentally changed a layout or configuration file | Avoid editing files in ```_layouts/, _includes/```, or ```_sass/``` unless you know what they do. Restore from history if needed. |
 | “Your site is having problems building” error on GitHub | There may be a mistake in your Markdown front matter (e.g., missing a quote or colon) | Go to the **Actions** tab on GitHub to see the specific error message. Fix the formatting and push again. |
 | Can't find where to edit page content | You're looking at the wrong file or the content is generated from a template | Start by editing Markdown files like ```index.md, about.md```, or files inside ```_pages/```. Preview the live site to match what file maps to what page. |
