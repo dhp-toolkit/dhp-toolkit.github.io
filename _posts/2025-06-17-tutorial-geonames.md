@@ -3,345 +3,760 @@ title: "Trucial Coast Towns: Building a Historical Gazetteer Dataset with GeoNam
 categories:
   - Intermediate
 tags:
-  - chat
-  - Post Formats
+  - GeoNames
+  - APIs
+  - Gazetteers
 toc: true
 toc_sticky: true
 toc_label: "Table of Contents"
 ---
 
-A hands-on, beginner-friendly guide to querying historical place data using the GeoNames API. Learn how to search for places by name, extract geographic coordinates, feature types, and alternate names, and save the results for analysis—all through clear Python examples. No prior experience with APIs required; perfect for students and researchers in history or the humanities working with historical maps, gazetteers, or place-based data.
+A hands-on guide to using the GeoNames API to build and review a historical gazetteer. Using place names from the Trucial Coast as an example, you will learn how to query an online geographic database, retrieve candidate matches and geographic metadata, evaluate ambiguous results, and save a reviewed dataset for further historical analysis or mapping.
+
+**Learning Objectives:**
+
+By the end of this tutorial, you will be able to:
+
+* Explain what a gazetteer is and how it can support historical research.
+* Send queries to the GeoNames API from a Jupyter Notebook.
+* Retrieve coordinates, feature types, administrative information, and alternate place names.
+* Compare multiple candidate matches rather than automatically accepting the first result.
+* Use historical evidence to evaluate and document place-name matches.
+* Save both candidate results and a reviewed gazetteer as CSV files.
+* Refine GeoNames searches using country, feature class, and feature code filters.
 
 **Prerequisites:**
 
-This tutorial assumes a basic understanding of how to work with Jupyter Notebook. We strongly recommend that you take the `Getting Started with Jupyter Notebook` tutorial before taking this tutorial.
+This tutorial assumes basic familiarity with Jupyter Notebook and simple Python code. If you are new to notebooks, we recommend completing the *Getting Started with Jupyter Notebook* tutorial first.
 
-**Before you begin:**
+> **Last reviewed:** September 2026
 
-You can follow this tutorial in one of two ways:
-
-- Download and run the notebook directly on your computer using Jupyter (e.g., through Anaconda or any Python environment that supports notebooks), or
-- Create a new Jupyter notebook and copy-paste the code and explanations step-by-step as you follow along. This lets you write and test your own code interactively.
-
-Choose whichever method you’re most comfortable with — both will work just fine!
-
-The **ready-to-run** Jupyter notebook can be downloaded following this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/QueryingGeoNames.ipynb){:target="_blank" rel="noopener"}. 
-
-> To download the file following the above link, click on the 3 dots on the upper-right corner which displays **'More file actions'**, then click on the **Download** button.
-![Screenshot of the download button](/assets/images/geonames/tutorial-geonames-1.1.png)
-
+---
 
 ## 1. Introduction
 
-**"Gazetteers"** are structured lists of place names with information about their locations, variants, and historical context. In this tutorial, we will create a small dataset of historical places from the **Trucial Coast** (pre-UAE region) and enrich it using the **GeoNames API**.
+A **gazetteer** is a structured collection of place names linked to information such as coordinates, alternate names, administrative areas, or feature types. Gazetteers can help historians connect place names found in maps, newspapers, archival records, travel accounts, and other sources to geographic locations.
 
-## 2. Objective
-In this tutorial you will learn how to:
-- Start from a **CSV** file containing a few historical town names
-- Use the **GeoNames API** to retrieve coordinates and metadata
-- Save the enriched dataset to a new **CSV** file
+In this tutorial, we will work with a small collection of historical place names from the **Trucial Coast**, the British-era designation associated with the sheikhdoms that later formed the United Arab Emirates. We will use the **GeoNames API** to retrieve geographic information for these names.
 
+The goal, however, is not simply to convert names into coordinates automatically.
+
+### 1.1 A Historical Caution
+
+GeoNames is a large contemporary geographic database. It is useful for historical research, but it is **not itself a historical authority**.
+
+A historical place name may:
+
+* have several possible modern equivalents,
+* appear under multiple spellings or transliterations,
+* refer to a settlement whose boundaries or status have changed,
+* have the same name as places elsewhere,
+* be absent from GeoNames altogether,
+* be classified according to a modern geographic or administrative system that did not exist in the historical period you are studying.
+
+For this reason, a GeoNames search result should initially be treated as a **candidate match**, not automatically as the correct identification.
+
+In this tutorial, we will therefore retrieve several candidates for each historical place name and review them before creating the final gazetteer.
+
+---
+
+## 2. Before You Begin
+
+You can follow this tutorial by creating a new Jupyter Notebook and copying the code and explanations step by step.
+
+You will also need the sample dataset:
+
+[Download the sample Trucial Coast towns dataset](/assets/trucial_towns.zip)
+
+After downloading the ZIP file, extract it and place the file ```trucial_towns.csv``` in the same project folder as your Jupyter Notebook.
+
+Your project folder might look like this:
+
+```text
+geonames-project/
+├── geonames_tutorial.ipynb
+└── trucial_towns.csv
+```
+
+Keeping the notebook and data together makes the file paths in this tutorial easier to follow.
+
+---
 
 ## 3. Install Required Libraries
 
-The libraries you need to install for this tutorial are:
+We will use two Python libraries:
 
-- **`pandas`**: helps us easily create, manage, and manipulate structured datasets like our gazetteer of historical places
-- **`requests`**: allows us to send HTTP requests to the GeoNames API, so we can enrich our dataset with location adetails and additional information from this online geographic database
+* **pandas** for working with tabular data.
+* **requests** for communicating with the GeoNames web service.
 
-> **Note:** These libraries might already be installed in your environment. In that case, running the command will display a message similar to:`Requirement already satisfied`
+Inside a Jupyter Notebook, run:
 
-You can install those libraries by running the following code:
-```!pip install pandas requests```
-
-## 4. Load the Input CSV
-
-You can download the sample input file used for this tutorial using this [link](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/trucial_towns.zip){:target="_blank" rel="noopener"}.
-
-If you choose to use your own input file with this tutorial, be sure to replace the file name in the code (`trucial_towns.csv`) with the name of your own file and ensure your file contains at least the following column:
-- `name`: historical place name
-
-Aditional columns (optional but recommended):
-- `type`: A description of the kind of place — e.g., fort, settlement, port, etc.
-- `source`: A note about where the name came from — e.g., a historical map, archive, or article
-
-Columns `source` and `type` won’t be used in the GeoNames query itself, but they are useful for organizing, filtering, or analyzing your results later.
-
-**Example row:**
-
-```ruby
-Ras Al Khaimah,	port, Lorimer Gazetteer
+```python
+%pip install pandas requests
 ```
-> 📌 Note: In this tutorial, you do not need to provide a country code to make a query. The GeoNames API will search globally using only the place name.
 
+> **Note:** If the libraries are already installed in the Python environment used by your notebook, you may see a message such as ```Requirement already satisfied```.
 
-**Loading the CSV:**
+Now import the libraries we will use:
 
-Make sure to save `trucial_towns.csv` in the same folder as this notebook file (`.ipynb`) so it can be loaded correctly.
-
-```ruby
+```python
 import pandas as pd
+import requests
+import time
+```
 
-# Load input CSV
-input_file = "trucial_towns.csv"  # Rename this if to match your file name and make sure it is in the same folder as your notebook
+---
+
+## 4. Load the Historical Place-Name Dataset
+
+The sample CSV contains historical place names and contextual information.
+
+At minimum, your own dataset should contain a column called:
+
+```text
+name
+```
+
+This is the place name that will be sent to GeoNames.
+
+Additional columns are strongly recommended. For example:
+
+* ```type``` — the type of place described by your historical source, such as port, settlement, fort, or village.
+* ```source``` — where the historical name came from, such as a map, gazetteer, archival document, or newspaper.
+
+These columns are important because historical context can help you determine whether a candidate returned by GeoNames is actually the place mentioned in your source.
+
+For example:
+
+```text
+name,type,source
+Ras Al Khaimah,port,Lorimer Gazetteer
+```
+
+Load the CSV:
+
+```python
+input_file = "trucial_towns.csv"
+
 df = pd.read_csv(input_file)
 
-# Display the data
 df.head()
 ```
 
-After you run the above code, you will see the following dataframe printed:
 ![Output](/assets/images/geonames/tutorial-geonames-4.1.png)
 
+Before continuing, check that the ```name``` column exists:
 
-## 5. Define the GeoNames Query Function
+```python
+if "name" not in df.columns:
+    raise ValueError("The input CSV must contain a column named 'name'.")
+```
 
-We will use the free **GeoNames API** to retrieve information for each town. You must register at [https://www.geonames.org/login](https://www.geonames.org/login){:target="_blank" rel="noopener"} and get a username.
+---
 
-To enrich the dataset, the tutorial leverages the free GeoNames API. Before proceeding, you need to register on the GeoNames website [https://www.geonames.org/login](https://www.geonames.org/login) to obtain a username.
+## 5. Set Up Access to the GeoNames API
 
-The following code defines the `query_geonames` function which is designed to send a request to the GeoNames API using a given place name. It processes the API's JSON response and extracts relevant information such as latitude, longitude, GeoNames ID, feature class, feature code, and filtered alternate names. The function includes logic to filter out irrelevant alternate names, such as URLs, airport codes (IATA, ICAO, FAAC), postal codes, Wikidata IDs, and short, all-caps codes. 
+GeoNames provides a web service that allows programs to send geographic queries and receive structured results.
 
-This function constructs the API request, sends it, and then parses the JSON response to extract and return the desired geographic data and a semicolon-separated string of filtered alternate names. Error handling for requests exceptions is also included.
+To use the free GeoNames web service:
 
-Remember to replace `yourGeonamesUsername` with your actual GeoNames username.
+1. Create a GeoNames account at [GeoNames](https://www.geonames.org/login){:target="_blank" rel="noopener"}.
+2. Confirm your account.
+3. Enable web-service access from your GeoNames account page.
+4. Replace the placeholder below with your GeoNames username.
 
-**Code:**
+```python
+GEONAMES_USERNAME = "yourGeonamesUsername"
+```
 
-```ruby
-import requests # For making HTTP requests to web services.
-import time     # For pausing execution to avoid hitting API rate limits.
+Your GeoNames username is sent with each API request.
 
-GEONAMES_USERNAME = "yourGeonamesUsername"  # CHANGE THIS with your GeoNames username
+> **Security note:** A GeoNames username is not the same thing as your password. Never put passwords, API keys, or other private credentials directly into a notebook that you plan to publish.
 
-def query_geonames(place_name): # Function to query the GeoNames API for a given place name.
-    base_url = "http://api.geonames.org/searchJSON" # Base URL for GeoNames search API.
+We will use GeoNames' secure JSON endpoint:
+
+```python
+GEONAMES_URL = "https://secure.geonames.org/searchJSON"
+```
+
+---
+
+## 6. Query GeoNames for Candidate Matches
+
+### 6.1 Why Retrieve More Than One Result?
+
+A very simple geocoding script might request one result and automatically assume that the first result is correct.
+
+That approach is risky for historical research.
+
+If a historical source contains the name ```Sharjah```, for example, the historian should still examine whether the result's location, feature type, administrative area, and alternate names make sense in relation to the source.
+
+We will therefore retrieve up to **five candidate matches** for each name.
+
+### 6.2 Prepare Alternate Names
+
+When we request detailed results from GeoNames, a record may contain alternate names in different languages and scripts.
+
+The following helper function keeps useful names while removing entries such as web links and some machine-readable codes:
+
+```python
+def format_alternate_names(place):
+    alternate_names = []
+
+    for alt in place.get("alternateNames", []):
+        name = (alt.get("name") or "").strip()
+        lang = (alt.get("lang") or "").strip()
+
+        if not name:
+            continue
+
+        # Exclude URLs and common non-name identifiers
+        if name.startswith("http"):
+            continue
+
+        if lang in {"link", "iata", "icao", "faac", "post", "wkdt"}:
+            continue
+
+        # Preserve language information when GeoNames provides it
+        if lang:
+            label = f"{lang}:{name}"
+        else:
+            label = name
+
+        alternate_names.append(label)
+
+    # Remove duplicates while preserving order
+    alternate_names = list(dict.fromkeys(alternate_names))
+
+    return "; ".join(alternate_names)
+```
+
+Keeping language information can be especially useful when working with multilingual historical sources.
+
+### 6.3 Define the Query Function
+
+Now define a function that searches GeoNames and returns several possible matches:
+
+```python
+def query_geonames_candidates(
+    place_name,
+    max_rows=5,
+    country_bias=None,
+    country=None,
+    feature_class=None,
+    feature_code=None
+):
     params = {
-        'q': place_name,    # Query parameter: the place name to search.
-        'maxRows': 1,       # Limit results to the top 1 match.
-        'username': GEONAMES_USERNAME, # Your GeoNames username.
-        'style': 'FULL'     # Request full details in the response.
+        "q": place_name,
+        "maxRows": max_rows,
+        "username": GEONAMES_USERNAME,
+        "style": "FULL"
     }
-    
+
+    # Optional parameters for refining the search
+    if country_bias:
+        params["countryBias"] = country_bias
+
+    if country:
+        params["country"] = country
+
+    if feature_class:
+        params["featureClass"] = feature_class
+
+    if feature_code:
+        params["featureCode"] = feature_code
+
     try:
-        response = requests.get(base_url, params=params) # Send GET request.
-        response.raise_for_status()                     # Raise an exception for bad status codes (4xx or 5xx).
-        
-        print(f"Querying: {place_name}")               # Debug print: shows current query.
-        print(f"Status Code: {response.status_code}") # Debug print: shows HTTP status.
-        
-        results = response.json()                       # Parse JSON response into a Python dictionary.
-        # print(f"Response JSON: {results}")             # Debug print: shows full API response.
-        geonames_data = results.get('geonames', [])     # Extract 'geonames' list, default to empty list if not found.
-        
-        if geonames_data:
-            top = geonames_data[0]                      # Get the first (and only) result.
-            
-            filtered_alt_names = []                     # Initialize list for cleaned alternate names.
-            if 'alternateNames' in top:
-                for alt_obj in top['alternateNames']:
-                    name = alt_obj.get('name', '')      # Get alternate name.
-                    lang = alt_obj.get('lang', '')      # Get language code.
+        response = requests.get(
+            GEONAMES_URL,
+            params=params,
+            timeout=30
+        )
 
-                    # Filter rules for alternate names:
-                    if name.startswith('http'): continue          # Exclude URLs.
-                    if lang in ['iata', 'icao', 'faac', 'post', 'wkdt']: continue # Exclude specific codes.
-                    if len(name) <= 5 and name.isupper(): continue # Exclude short, all-caps codes.
-                    if name.startswith('Q') and name[1:].isdigit(): continue # Exclude Wikidata Q-codes.
+        response.raise_for_status()
 
-                    filtered_alt_names.append(name)     # Add valid alternate name.
-            
-            unique_alt_names = list(dict.fromkeys(filtered_alt_names)) # Remove duplicates while preserving order.
-            alt_names_str = "; ".join(unique_alt_names) # Join unique names with semicolon.
-            
-            return (top.get('lat'),                     # Return latitude.
-                    top.get('lng'),                     # Return longitude.
-                    top.get('geonameId'),               # Return GeoNames ID.
-                    top.get('fcl'),                     # Return feature class.
-                    top.get('fcode'),                   # Return feature code.
-                    alt_names_str)                      # Return filtered alternate names string.
+        data = response.json()
+
+        # GeoNames can return an API-level error inside the JSON response
+        if "status" in data:
+            status = data["status"]
+            raise RuntimeError(
+                f"GeoNames error {status.get('value')}: "
+                f"{status.get('message')}"
+            )
+
+        results = data.get("geonames", [])
+
+        candidates = []
+
+        for rank, place in enumerate(results, start=1):
+            candidate = {
+                "query_name": place_name,
+                "candidate_rank": rank,
+                "geonames_name": place.get("name"),
+                "toponym_name": place.get("toponymName"),
+                "latitude": place.get("lat"),
+                "longitude": place.get("lng"),
+                "geonames_id": place.get("geonameId"),
+                "country_name": place.get("countryName"),
+                "country_code": place.get("countryCode"),
+                "admin_name_1": place.get("adminName1"),
+                "feature_class": place.get("fcl"),
+                "feature_class_name": place.get("fclName"),
+                "feature_code": place.get("fcode"),
+                "feature_code_name": place.get("fcodeName"),
+                "population": place.get("population"),
+                "alternate_names": format_alternate_names(place)
+            }
+
+            if place.get("geonameId"):
+                candidate["geonames_url"] = (
+                    f"https://www.geonames.org/{place.get('geonameId')}"
+                )
+            else:
+                candidate["geonames_url"] = ""
+
+            candidates.append(candidate)
+
+        return candidates
 
     except requests.exceptions.RequestException as e:
-        print(f"Error querying for '{place_name}': {e}") # Print error message for request failures.
-        
-    return '', '', '', '', '', '' # Return empty strings on error or no results.
-```
-
-
-## 6. Enrich the Dataset
-
-This section iterates through each row of the loaded dataset (`df`). For each historical place name, it calls the `query_geonames()` function to fetch relevant geographical data from the GeoNames API. 
-
-The retrieved data, including latitude, longitude, GeoNames ID, feature class, feature code, and alternate names, is then added as new columns to the DataFrame. 
-
-A one-second pause (**`time.sleep(1)`**) is incorporated between API requests to prevent exceeding GeoNames' rate limits. 
-After processing all entries, the updated DataFrame with the newly added information is displayed.
-For each row in our dataset, we take the name of the place and use the `query_geonames()` function to retrieve data from GeoNames. The results are added as new columns to the dataset.
-
-**Code:**
-
-```ruby
-df['latitude'] = ''
-df['longitude'] = ''
-df['geonames_id'] = ''
-df['feature_class'] = ''
-df['feature_code'] = ''
-df['alternate_names'] = ''
-
-# Query each place
-for idx, row in df.iterrows():
-    # The function now returns the alternate names string directly
-    lat, lon, gid, fcl, fcode, alt_names = query_geonames(row['name']) 
-    
-    df.at[idx, 'latitude'] = lat
-    df.at[idx, 'longitude'] = lon
-    df.at[idx, 'geonames_id'] = gid
-    df.at[idx, 'feature_class'] = fcl
-    df.at[idx, 'feature_code'] = fcode
-    df.at[idx, 'alternate_names'] = alt_names # Populate the new column
-    
-    time.sleep(1)  # Pause to avoid rate limits
-
-# Show the first five entries of the table
-print(df.head())
-```
-
-**Expected output:**
-
-![Output](/assets/images/geonames/tutorial-geonames-6.1.png)
-
-
-## 7. Save the Result into a CSV file
-
-After the dataset has been enriched with information from GeoNames, the next step is to save the updated DataFrame to a new CSV file. This ensures that the retrieved data is persistently stored and can be used for further analysis or visualization.
-
-The following code block saves the `df` DataFrame to a new CSV file named **`trucial_towns_enriched.csv`**. 
-The `index=False` argument prevents pandas from writing the DataFrame index as a column in the CSV file. 
-A confirmation message is then printed to indicate that the file has been saved.
-
-**Code:**
-
-```ruby
-output_file = "trucial_towns_enriched.csv"
-df.to_csv(output_file, index=False) # Save the output as a csv file
-print(f"Saved enriched dataset to {output_file}")
-```
-**Expected output:**
-
-![Output](/assets/images/geonames/tutorial-geonames-7.1.png)
-
-
-
-## 8. Querying by Country, Feature Class, and Feature Code
-
-Sometimes, you might want to find specific types of geographical features within a particular country, rather than searching for a named place globally. The GeoNames API allows you to refine your search using parameters like: 
-- **`country`** (two-letter ISO country code)
-- **`featureClass`**` (a broad category like 'H' for hydrographic features or 'P' for populated places)
-- **`featureCode`**` (a more specific type within a feature class, like 'RVR' for river or 'LAKE' for lake).
-
-You can get the list of featureCodes that belong to each featureClass [here](https://www.geonames.org/export/codes.html).
-
-This section demonstrates how to query for all hydrographic features (rivers, lakes, etc.) within a specific country (e.g., Turkey) and then save these results to a CSV file.
-
-First, let's define a new function **`query_geonames_by_criteria()`** that takes `country_code`, `feature_class`, and an optional `feature_code` as arguments. This function will fetch results based on these criteria.
-
-**Code:**
-
-```ruby
-
-import requests
-import pandas as pd # Import pandas to work with DataFrames and save to CSV
-
-GEONAMES_USERNAME = "yourGeonamesUsername"  # Replace with your actual GeoNames username
-
-def query_geonames_by_criteria(country_code, feature_class, feature_code=None, max_rows=1000):
-    # This function queries GeoNames for features based on country, feature class, and optional feature code
-    url = "http://api.geonames.org/searchJSON"
-    params = {
-        'country': country_code,     # ISO 2-letter country code (e.g., 'TR' for Turkey)
-        'featureClass': feature_class, # Feature Class (e.g., 'H' for hydrographic, 'P' for populated place)
-        'maxRows': max_rows,         # Maximum number of results to retrieve (up to 1000 for free account)
-        'username': GEONAMES_USERNAME
-    }
-    
-    if feature_code:
-        params['featureCode'] = feature_code # Add featureCode to parameters if provided.
-
-    print(f"Querying GeoNames for features in {country_code} (Class: {feature_class}, Code: {feature_code if feature_code else 'Any'})...")
-    
-    try:
-        response = requests.get(url, params=params) # Send GET request
-        response.raise_for_status() # Raise an exception for HTTP errors
-        
-        print(f"Status Code: {response.status_code}") # Print HTTP status
-        data = response.json() # Parse JSON response
-        results = data.get('geonames', []) # Extract 'geonames' list
-        
-        print(f"Found {len(results)} features.") # Print number of results
-        
-        # Optionally print a sample of the results
-        for i, place in enumerate(results[:5]):
-            print(f"  Sample {i+1}: Name: {place.get('name')}, Code: {place.get('fcode')}, Lat: {place.get('lat')}, Lng: {place.get('lng')}")
-            
-        return results
-        
-    except requests.exceptions.RequestException as e: # Catch errors as exceptions
-        print(f"Error querying GeoNames: {e}") # Print error message
+        print(f"Request error for '{place_name}': {e}")
         return []
 
-# Example Usage: Query for hydrographic features in Turkey
-print("\n--- Querying Hydrographic Features in Turkey ---")
-tr_hydro_features = query_geonames_by_criteria(country_code='TR', feature_class='H')
-
-# Example Usage: Query for specific feature code - Rivers (RVR) in Turkey
-print("\n--- Querying Rivers (RVR) in Turkey ---")
-tr_lakes= query_geonames_by_criteria(country_code='TR', feature_class='H', feature_code='LK')
-
+    except (ValueError, RuntimeError) as e:
+        print(f"GeoNames error for '{place_name}': {e}")
+        return []
 ```
 
-**Expected output:**
+### 6.4 Test the Function
 
-![Output](/assets/images/geonames/tutorial-geonames-8.1.png)
+Try querying one place:
 
+```python
+test_results = query_geonames_candidates(
+    "Ras Al Khaimah",
+    max_rows=5,
+    country_bias="AE"
+)
 
-Now that we have functions to query based on specific criteria, let's save the results into a CSV file for further use. We'll convert the list of dictionaries returned by the function into a Pandas DataFrame and then save it.
-
-**Code:**
-
-```ruby
-# Define the desired column order
-desired_columns = ['name', 'lat', 'lng', 'countryName', 'countryCode', 'fcl', 'fclName', 'fcode', 'fcodeName', 'adminName1']
-
-# Process and save hydrographic features for Turkey
-if tr_hydro_features:
-    df_tr_hydro = pd.DataFrame(tr_hydro_features) # Convert results to DataFrame
-    df_tr_hydro_selected = df_tr_hydro[desired_columns]     # Select and reorder columns
-    output_filename_hydro_tr = "tr_hydrographic_features.csv" # Define output filename
-    df_tr_hydro_selected.to_csv(output_filename_hydro_tr, index=False) # Save to CSV, no index
-    print(f"\nSaved {len(tr_hydro_features)} hydrographic features from Turkey to {output_filename_hydro_tr} with specified columns.")
-
-# Process and save rivers for Turkey
-if tr_rivers:
-    df_tr_rivers = pd.DataFrame(tr_rivers)
-    df_tr_rivers_selected = df_tr_rivers[desired_columns]
-    output_filename_rivers_tr = "tr_rivers.csv"
-    df_tr_rivers_selected.to_csv(output_filename_rivers_tr, index=False)
-    print(f"Saved {len(tr_rivers)} rivers from Turkey to {output_filename_rivers_tr} with specified columns.")
-
+pd.DataFrame(test_results)
 ```
-**Expected output:**
 
-![Output](/assets/images/geonames/tutorial-geonames-8.2.png)
+The parameter:
 
+```python
+country_bias="AE"
+```
 
+tells GeoNames to give preference to results associated with the United Arab Emirates.
 
-## 9. What's Next?
+Importantly, a **country bias does not exclude results from other countries**. This is useful when working with historical material because it helps rank likely matches without assuming in advance that every name must fall within a modern national boundary.
 
-Now that you have coordinates and metadata, you can try:
-- Importing into **QGIS** or **Google My Maps** for visualization
-- Aligning with the **World Historical Gazetteer (WHG)**
+If you want to restrict a query strictly to a modern country, use:
 
-You can also extend this notebook to:
-- Query for multiple alternate names
-- Visualize the towns using **Python libraries** like `folium` or `plotly`
-- Compare coverage with **Wikidata** or **WHG**
+```python
+country="AE"
+```
+
+instead.
+
+---
+
+## 7. Query the Entire Dataset
+
+We can now query each historical place name in the input CSV.
+
+For the Trucial Coast sample, we will use the UAE country code as a **bias**, not as a strict filter.
+
+```python
+candidate_rows = []
+
+for idx, row in df.iterrows():
+    historical_name = row["name"]
+
+    print(f"Querying: {historical_name}")
+
+    results = query_geonames_candidates(
+        historical_name,
+        max_rows=5,
+        country_bias="AE"
+    )
+
+    if results:
+        for candidate in results:
+            candidate["historical_type"] = row.get("type", "")
+            candidate["source"] = row.get("source", "")
+            candidate_rows.append(candidate)
+
+    else:
+        # Preserve unresolved names rather than silently dropping them
+        candidate_rows.append({
+            "query_name": historical_name,
+            "candidate_rank": "",
+            "geonames_name": "",
+            "toponym_name": "",
+            "latitude": "",
+            "longitude": "",
+            "geonames_id": "",
+            "country_name": "",
+            "country_code": "",
+            "admin_name_1": "",
+            "feature_class": "",
+            "feature_class_name": "",
+            "feature_code": "",
+            "feature_code_name": "",
+            "population": "",
+            "alternate_names": "",
+            "geonames_url": "",
+            "historical_type": row.get("type", ""),
+            "source": row.get("source", "")
+        })
+
+    # A simple pause between requests
+    time.sleep(1)
+
+candidates_df = pd.DataFrame(candidate_rows)
+```
+
+Now inspect some of the candidate results:
+
+```python
+columns_to_view = [
+    "query_name",
+    "candidate_rank",
+    "geonames_name",
+    "country_code",
+    "admin_name_1",
+    "feature_code",
+    "latitude",
+    "longitude",
+    "alternate_names"
+]
+
+candidates_df[columns_to_view].head(20)
+```
+
+Your table now contains **multiple possible matches for each historical name**, rather than automatically selecting one result.
+
+> **For larger projects:** Check GeoNames' current web-service limits and terms before running a large number of requests. The simple pause used here is suitable for a small teaching dataset but is not a substitute for designing a larger API workflow responsibly.
+
+---
+
+## 8. Review Candidate Matches
+
+This is the most important step for historical work.
+
+For each historical place name, examine the candidate results and ask:
+
+* Does the modern geographic location fit what I know from the historical source?
+* Is the feature type plausible?
+* Do the alternate names include spellings or transliterations found in my source?
+* Does the administrative region make sense?
+* Are there several places with similar names?
+* Does a historical map or gazetteer provide evidence that helps distinguish between them?
+* Has the settlement moved, expanded, disappeared, or changed administrative status?
+
+The **GeoNames ID** is particularly useful because it provides a stable identifier for the GeoNames record.
+
+### 8.1 Add Review Columns
+
+Add three columns for documenting your decision:
+
+```python
+candidates_df["selected"] = ""
+candidates_df["match_confidence"] = ""
+candidates_df["review_notes"] = ""
+```
+
+Save the candidate table:
+
+```python
+candidate_file = "trucial_towns_candidates.csv"
+
+candidates_df.to_csv(
+    candidate_file,
+    index=False,
+    encoding="utf-8-sig"
+)
+
+print(f"Saved candidate matches to {candidate_file}")
+```
+
+The ```utf-8-sig``` encoding helps preserve multilingual text, including Arabic-script names, when the CSV is opened in commonly used spreadsheet software.
+
+### 8.2 Review the CSV Manually
+
+Open ```trucial_towns_candidates.csv``` in spreadsheet software.
+
+For the candidate you believe is the best match, enter:
+
+```text
+yes
+```
+
+in the ```selected``` column.
+
+In ```match_confidence```, you might use:
+
+```text
+high
+medium
+low
+```
+
+Use ```review_notes``` to record why you chose the candidate.
+
+For example:
+
+```text
+Coordinates and alternate Arabic name match the location shown in the 1908 map.
+```
+
+If none of the candidates can be identified confidently, **do not force a match**. Leave ```selected``` blank and record the uncertainty in ```review_notes```.
+
+Save the reviewed file as:
+
+```text
+trucial_towns_candidates_reviewed.csv
+```
+
+---
+
+## 9. Create the Reviewed Gazetteer
+
+Load the reviewed file:
+
+```python
+reviewed_file = "trucial_towns_candidates_reviewed.csv"
+
+reviewed_df = pd.read_csv(reviewed_file)
+```
+
+Now keep only rows marked as selected:
+
+```python
+selected_values = {"yes", "y", "true", "1"}
+
+selected_df = reviewed_df[
+    reviewed_df["selected"]
+    .astype(str)
+    .str.strip()
+    .str.lower()
+    .isin(selected_values)
+].copy()
+```
+
+Inspect the selected records:
+
+```python
+selected_df[
+    [
+        "query_name",
+        "geonames_name",
+        "latitude",
+        "longitude",
+        "geonames_id",
+        "feature_code",
+        "match_confidence",
+        "review_notes"
+    ]
+]
+```
+
+Save the reviewed historical gazetteer:
+
+```python
+output_file = "trucial_towns_enriched.csv"
+
+selected_df.to_csv(
+    output_file,
+    index=False,
+    encoding="utf-8-sig"
+)
+
+print(f"Saved reviewed gazetteer to {output_file}")
+```
+
+You now have two useful research objects:
+
+```text
+trucial_towns_candidates.csv
+```
+
+contains the possible GeoNames matches returned by the API, while:
+
+```text
+trucial_towns_enriched.csv
+```
+
+contains the matches you selected after historical review.
+
+Keeping both is good research practice because it preserves evidence of the matching process rather than recording only the final decision.
+
+---
+
+## 10. Refining Searches with Country and Feature Types
+
+GeoNames allows you to refine a search using parameters such as:
+
+* ```country``` — a two-letter ISO country code.
+* ```countryBias``` — prioritizes results from a country without excluding other countries.
+* ```featureClass``` — a broad category of geographic feature.
+* ```featureCode``` — a more specific feature type.
+
+GeoNames feature classes include, for example:
+
+* ```P``` — populated places
+* ```H``` — streams, lakes, and other hydrographic features
+* ```A``` — countries, states, and administrative divisions
+* ```S``` — spots, buildings, farms, and other sites
+
+Feature codes provide more specific classifications.
+
+You can consult the GeoNames feature-code list here:
+
+[GeoNames Feature Codes](https://www.geonames.org/export/codes.html){:target="_blank" rel="noopener"}
+
+### 10.1 Restrict a Search to Populated Places
+
+For example, to search for Dubai only among populated places in the UAE:
+
+```python
+dubai_candidates = query_geonames_candidates(
+    "Dubai",
+    max_rows=10,
+    country="AE",
+    feature_class="P"
+)
+
+pd.DataFrame(dubai_candidates)
+```
+
+Here, ```country="AE"``` is a strict filter rather than a bias.
+
+### 10.2 Search for a Lake
+
+GeoNames uses:
+
+```text
+H
+```
+
+for the hydrographic feature class and:
+
+```text
+LK
+```
+
+for a lake.
+
+For example:
+
+```python
+lake_candidates = query_geonames_candidates(
+    "Van",
+    max_rows=10,
+    country="TR",
+    feature_class="H",
+    feature_code="LK"
+)
+
+pd.DataFrame(lake_candidates)
+```
+
+### 10.3 Search for a Stream or River
+
+In GeoNames, the feature code:
+
+```text
+STM
+```
+
+means **stream**, the category used for many rivers.
+
+For example:
+
+```python
+river_candidates = query_geonames_candidates(
+    "Euphrates",
+    max_rows=10,
+    country="TR",
+    feature_class="H",
+    feature_code="STM"
+)
+
+pd.DataFrame(river_candidates)
+```
+
+Feature classifications are useful for narrowing a search, but remember that they are part of the GeoNames data model. Historical sources may classify or describe places differently.
+
+---
+
+## 11. What Does the API Actually Do?
+
+It is useful to understand what happened computationally.
+
+When you ran:
+
+```python
+query_geonames_candidates("Ras Al Khaimah")
+```
+
+Python:
+
+1. created a set of query parameters,
+2. sent them to the GeoNames web service,
+3. received a response in **JSON** format,
+4. converted that JSON into Python data structures,
+5. extracted selected fields,
+6. placed those fields into a pandas DataFrame.
+
+An **API** therefore provides a structured way for one piece of software to request data or functionality from another service.
+
+This is different from manually searching the GeoNames website. Because the query is performed through code, the same operation can be repeated systematically across many records.
+
+That repeatability is useful—but it also makes mistakes scalable. If a script automatically chooses the wrong place for one historical name, applying the same rule to thousands of names can reproduce that mistake across an entire dataset.
+
+This is one reason why documenting candidate selection and uncertainty matters.
+
+---
+
+## 12. Historical Gazetteers and Data Provenance
+
+When creating a gazetteer for historical research, try to distinguish between information that comes from your **historical source** and information supplied by a **modern geographic database**.
+
+For example:
+
+| Field | Possible Source |
+| --- | --- |
+| Historical place name | Archival document or historical map |
+| Historical place type | Historical source |
+| Source citation | Your research documentation |
+| GeoNames ID | GeoNames |
+| Latitude / longitude | GeoNames |
+| Modern administrative area | GeoNames |
+| Alternate names | GeoNames |
+| Match confidence | Researcher |
+| Review notes | Researcher |
+
+Maintaining these distinctions makes the provenance of the dataset clearer.
+
+It also allows another researcher—or your future self—to understand which information came from the historical record, which information was added computationally, and which judgments were made during the matching process.
+
+---
+
+## 13. What's Next?
+
+Once you have a reviewed historical gazetteer, you can:
+
+* import the coordinates into **QGIS** for mapping,
+* compare your results with the **World Historical Gazetteer (WHG)**,
+* compare place identifiers and alternate names with **Wikidata**,
+* investigate unmatched or low-confidence places using historical maps and gazetteers,
+* visualize the results with Python libraries such as ```folium``` or ```plotly```,
+* record multiple historical names for the same place,
+* add temporal information indicating when a particular place name or administrative designation was used,
+* compare how different gazetteers represent the same historical geography.
+
+For larger historical datasets, place-name matching can become a research problem in its own right. Automated retrieval can help generate possible matches, but the final identification of a historical place often depends on context, source criticism, and explicit documentation of uncertainty.
