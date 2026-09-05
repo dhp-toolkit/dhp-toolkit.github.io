@@ -81,11 +81,17 @@ geonames-project/
 Keeping the notebook and data together makes the file paths in this tutorial easier to follow.
 
 
-If you prefer to work from a ready-to-run notebook, you can download the companion Jupyter Notebook here:
+<div class="notice--info" markdown="1">
 
-[Download `QueryingGeoNames.ipynb`](/assets/notebooks/QueryingGeoNames.ipynb)
+**Prefer a ready-to-run notebook?**
 
-You can either run the notebook directly or use it alongside the step-by-step explanations below.
+Download the companion Jupyter Notebook:
+
+[**Download `QueryingGeoNames.ipynb`**](/assets/notebooks/QueryingGeoNames.ipynb)
+
+You can run the notebook directly or use it alongside the step-by-step explanations below.
+
+</div>
 
 ---
 
