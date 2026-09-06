@@ -12,7 +12,7 @@ toc_sticky: true
 toc_label: "Table of Contents"
 ---
 
-This tutorial introduces a reproducible workflow for transcribing archival document images with **multimodal generative AI**. We use the **Gemini API Free Tier** as the worked example, but the larger method is not specific to Gemini. The same basic workflow can be adapted to other multimodal AI systems that accept images as input.
+This tutorial introduces a reproducible workflow for transcribing archival document images with **multimodal generative AI**. We use the **Gemini API Free Tier** as a worked example, but the larger method is not specific to Gemini. The same basic workflow can be adapted to other multimodal AI systems that accept images as input.
 
 You will learn how to send an archival image to an AI model, give the model explicit transcription instructions, retrieve and save the transcription, and evaluate the output against the original image.
 
@@ -20,20 +20,20 @@ The central historical-method question is:
 
 > **What happens when AI-generated text becomes part of the evidentiary record we search, analyze, or reuse?**
 
-**Learning Objectives:**
+**Learning Objectives**
 
 By the end of this tutorial, you will be able to:
 
 * Explain the difference between using an AI chat interface and using an API.
 * Send an archival image and transcription prompt to a multimodal AI model.
-* Explain what the main lines of the API code are doing.
+* Explain what the main pieces of the API code are doing.
 * Compare a minimal transcription prompt with a more explicit archival transcription prompt.
 * Save model outputs together with information about how they were produced.
 * Apply the same transcription workflow to several archival images.
 * Evaluate AI-generated transcriptions for omissions, normalization, uncertainty, layout problems, and unsupported reconstruction.
 * Explain which parts of the workflow can be adapted to other multimodal AI systems.
 
-**Prerequisites:**
+**Prerequisites**
 
 This tutorial assumes basic familiarity with Jupyter Notebook and simple Python code. If you are new to notebooks, complete the *Getting Started with Jupyter Notebook* tutorial first.
 
@@ -43,13 +43,18 @@ You do **not** need previous experience with APIs.
 
 <div class="notice--info" markdown="1">
 
-**Prefer a ready-to-run notebook?**
+**Use the companion Jupyter Notebook**
 
-Download the companion notebook:
+You can use the notebook in three ways:
 
-[**Download `GeminiArchivalTranscription.ipynb`**](/assets/notebooks/GeminiArchivalTranscription.ipynb)
+**[Open in Google Colab](https://colab.research.google.com/github/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/GeminiArchivalTranscription.ipynb)**  
+Runs the notebook interactively in your browser. No local Jupyter installation is required.
 
-You can run the notebook directly or use it alongside the step-by-step explanations below.
+**[View the notebook on GitHub](https://github.com/dhp-toolkit/dhp-toolkit.github.io/blob/master/assets/notebooks/GeminiArchivalTranscription.ipynb)**  
+Lets you read the notebook and inspect its code in your browser. The cells cannot be run from the GitHub preview.
+
+<a href="/assets/notebooks/GeminiArchivalTranscription.ipynb" download="GeminiArchivalTranscription.ipynb"><strong>Download the notebook</strong></a>  
+Download the `.ipynb` file if you want to open it locally in Jupyter Notebook or JupyterLab.
 
 </div>
 
@@ -57,7 +62,7 @@ You can run the notebook directly or use it alongside the step-by-step explanati
 
 ## 1. What Are We Doing in This Tutorial?
 
-We will begin with an archival image stored on your computer.
+We will begin with an archival image stored on your computer or uploaded to Google Colab.
 
 For example:
 
@@ -75,18 +80,18 @@ Gemini will return a text response containing its transcription.
 The basic workflow looks like this:
 
 ```text
-archival image on your computer
-          ↓
-Python code in Jupyter
-          ↓
+archival image
+      ↓
+Python code in Jupyter or Colab
+      ↓
 image + transcription instructions
-          ↓
+      ↓
 Gemini API
-          ↓
+      ↓
 multimodal Gemini model
-          ↓
-text transcription returned to Jupyter
-          ↓
+      ↓
+text transcription returned to the notebook
+      ↓
 human review against the image
 ```
 
@@ -98,7 +103,16 @@ Later, we will repeat the process across several images and save the results in 
 
 Traditional OCR and HTR systems are designed specifically to recognize text from images.
 
-Multimodal generative AI models are broader systems. They can interpret images and language together and can therefore respond to instructions about text, document structure, handwriting, layout, stamps, marginalia, tables, and other visible features.
+Multimodal generative AI models are broader systems. They can interpret images and language together and can therefore respond to instructions about:
+
+* text,
+* document structure,
+* handwriting,
+* layout,
+* stamps,
+* marginalia,
+* tables,
+* and other visible features.
 
 That flexibility can be useful for complex archival material. It also creates a methodological risk.
 
@@ -122,9 +136,15 @@ We will therefore treat the model output as a **transcription candidate** that m
 
 ## 3. Why Use an API Instead of a Chat Interface?
 
-You could upload an image to a consumer AI chat interface and ask it to transcribe the page.
+You could upload an image to a consumer AI chat interface and ask:
 
-An **API** lets us perform the same basic interaction through code. This becomes useful when we want to:
+```text
+Please transcribe this page.
+```
+
+An **API** lets us perform the same basic interaction through code.
+
+This becomes useful when we want to:
 
 * apply exactly the same prompt to several pages;
 * keep a record of which prompt was used;
@@ -152,7 +172,9 @@ Please return a transcription.
 
 The service processes that request and sends a response back to your notebook.
 
-The archival image therefore leaves your computer and is processed by the external service.
+This means that the archival image **leaves your computer or Colab environment and is transmitted to the external AI service for processing**.
+
+That matters when deciding which research materials are appropriate to use.
 
 ---
 
@@ -160,7 +182,18 @@ The archival image therefore leaves your computer and is processed by the extern
 
 This tutorial uses the **Gemini API** because its Free Tier provides an accessible way for students to experiment with multimodal models that accept images as input.
 
-The larger workflow is **not specific to Gemini**. Other multimodal AI systems can perform similar image-to-text tasks, although their Python libraries, authentication methods, model names, usage limits, pricing, and data-handling policies will differ.
+The larger workflow is **not specific to Gemini**.
+
+Other multimodal AI systems can perform similar image-to-text tasks, although their:
+
+* Python libraries,
+* authentication methods,
+* model names,
+* usage limits,
+* pricing,
+* and data-handling policies
+
+will differ.
 
 The transferable workflow is:
 
@@ -169,7 +202,7 @@ authenticate
 → provide image
 → provide transcription instructions
 → receive output
-→ save information about the process
+→ record how the output was produced
 → evaluate against the source
 ```
 
@@ -177,7 +210,14 @@ If you later switch to another provider, the API-specific Python code will chang
 
 ### 4.1 Free Tier and Data Use
 
-At the time this tutorial was last reviewed, Google offered free input and output for selected Gemini API models, including **Gemini 3.7 Flash**. Free-tier availability, quotas, and terms can change, so check the current [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing){:target="_blank" rel="noopener"} and [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits){:target="_blank" rel="noopener"} before using the service.
+At the time this tutorial was last reviewed, Google offered a Gemini API Free Tier with free input and output for selected models, including **Gemini 3.8 Flash**.
+
+Free-tier model availability, quotas, pricing, and terms can change, so always check the current:
+
+* [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
+* [Gemini API rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)
+
+before beginning a larger project.
 
 Google currently states that content submitted through the Free Tier may be used to improve its products, while paid-tier content is not used for that purpose.
 
@@ -185,9 +225,15 @@ Google currently states that content submitted through the Free Tier may be used
 
 ---
 
-## 5. Prepare Your Project Folder
+## 5. Prepare Your Project
 
-Create a folder for the tutorial. Inside it, create another folder called:
+There are two ways to follow this tutorial.
+
+### 5.1 If You Are Using Jupyter Notebook or JupyterLab Locally
+
+Create a folder for the tutorial.
+
+Inside it, create another folder called:
 
 ```text
 archival_images
@@ -202,35 +248,46 @@ gemini-transcription/
     └── page_01.jpg
 ```
 
-For the first part of the tutorial, we will work with **one JPG image** called:
+For the first part of the tutorial, we will work with one JPG image called:
 
 ```text
 page_01.jpg
 ```
 
-Using one file type at first keeps the Python code easier to understand.
+Place a public or unrestricted archival image inside the `archival_images` folder and rename it `page_01.jpg`.
 
-Place a public or unrestricted archival image inside the ```archival_images``` folder and rename it ```page_01.jpg```.
+### 5.2 If You Are Using Google Colab
 
-> **Why does the folder structure matter?** Python needs to know where a file is located before it can open it. Because our notebook and ```archival_images``` folder are stored together, we can refer to the image with the simple relative path ```archival_images/page_01.jpg```.
+You do not need to create the same folder structure on your computer.
+
+Open the notebook in Colab, then:
+
+1. Click the **Files** folder icon on the left side of the Colab window.
+2. Click the **Upload** button.
+3. Select your archival image.
+4. Upload a JPG image called `page_01.jpg`.
+
+Colab places uploaded files inside its temporary `/content` directory.
+
+> **Important:** Files uploaded directly to a Colab session are temporary. If the session ends or resets, you may need to upload them again.
 
 ---
 
 ## 6. Install the Python Libraries
 
-We need three main packages:
+We need several pieces of software:
 
-* **google-genai** — Google's current Python SDK for the Gemini API;
-* **pandas** — helps us organize and save transcription results in tables;
-* Python's built-in file-handling tools — used to read the image and prepare it for the request.
+* **google-genai** — Google's current Python library for communicating with the Gemini API;
+* **Pillow** — lets Python open and display image files;
+* **pandas** — helps us organize and save transcription results in tables.
 
-Run this in a Jupyter code cell:
+Run this in a Jupyter or Colab code cell:
 
 ```python
-%pip install -U google-genai pandas
+%pip install -U google-genai pillow pandas
 ```
 
-### What does this line do?
+### What Does This Line Do?
 
 ```text
 %pip install
@@ -244,6 +301,8 @@ asks the Python environment used by your notebook to install packages.
 
 means **upgrade** the packages if an older version is already installed.
 
+The remaining words are the names of the packages we want.
+
 Now import the tools we will use:
 
 ```python
@@ -251,34 +310,40 @@ from google import genai
 from getpass import getpass
 from pathlib import Path
 from datetime import datetime, timezone
+from PIL import Image
+from IPython.display import display
 import base64
+import mimetypes
 import time
 import pandas as pd
 ```
 
-### What are these imports for?
+### What Are These Imports For?
 
 | Import | Why we need it |
 | --- | --- |
-| ```genai``` | Communicates with the Gemini API |
-| ```getpass``` | Lets us enter an API key without displaying it in the notebook |
-| ```Path``` | Helps Python work with file and folder paths |
-| ```datetime, timezone``` | Records when a transcription was produced |
-| ```base64``` | Converts image bytes into text-safe data that can be sent in the API request |
-| ```time``` | Lets us pause briefly between API requests |
-| ```pandas``` | Organizes and saves results in tables |
+| `genai` | Communicates with the Gemini API |
+| `getpass` | Lets us enter an API key without displaying it |
+| `Path` | Helps Python work with file and folder paths |
+| `datetime, timezone` | Records when a transcription was produced |
+| `Image` | Opens archival images |
+| `display` | Displays an image inside Jupyter or Colab |
+| `base64` | Converts the image into a form that can be transmitted through the API |
+| `mimetypes` | Helps Python identify the image format |
+| `time` | Lets us pause briefly between API requests |
+| `pandas` | Organizes and saves results in tables |
 
-You do not need to memorize these imports. The important thing is to understand that each one adds a specific capability that we use later.
+You do not need to memorize these imports. The important point is that each one adds a specific capability that we use later.
 
 ---
 
 ## 7. Create and Enter Your Gemini API Key
 
-The API needs to know which project is making the request. An **API key** provides that authentication.
+The API needs to know which Google project is making the request. An **API key** provides that authentication.
 
 ### 7.1 Create the Key
 
-1. Open [Google AI Studio](https://aistudio.google.com/){:target="_blank" rel="noopener"}.
+1. Open [Google AI Studio](https://aistudio.google.com/).
 2. Go to the API Keys section.
 3. Create or copy an API key for your project.
 4. Return to your notebook.
@@ -291,7 +356,9 @@ Run:
 GEMINI_API_KEY = getpass("Enter your Gemini API key: ")
 ```
 
-When you run the cell, Jupyter asks you to enter the key. Because we use ```getpass```, the key is **not displayed in the notebook output**.
+When you run the cell, Jupyter or Colab will ask you to enter the key.
+
+Because we use `getpass`, the key is **not displayed in the notebook output**.
 
 Now create a Gemini client:
 
@@ -299,13 +366,31 @@ Now create a Gemini client:
 client = genai.Client(api_key=GEMINI_API_KEY)
 ```
 
-### What is a client?
+### What Is a Client?
 
-The ```client``` is the Python object we will use to communicate with Gemini.
+The `client` is the Python object we will use to communicate with Gemini.
 
-You can think of it as the connection between your notebook and the Gemini API.
+You can think of it as the connection between:
 
-> **Never write an API key directly into a notebook that you plan to save, publish, or upload to GitHub.** For longer-term projects, environment variables are a better way to store credentials. The interactive method above is used here because it is simple and prevents the key from being stored visibly in the teaching notebook.
+```text
+your notebook
+```
+
+and:
+
+```text
+the Gemini API
+```
+
+Later, when we write:
+
+```python
+client.interactions.create(...)
+```
+
+we are telling this client to send a request to a Gemini model.
+
+> **Never write an API key directly into a notebook that you plan to save, publish, or upload to GitHub.** For longer-term projects, environment variables or other credential-management tools are preferable. The interactive method above is used here because it is simple and prevents the key from being stored visibly in the teaching notebook.
 
 ---
 
@@ -314,26 +399,40 @@ You can think of it as the connection between your notebook and the Gemini API.
 We will store the model name in a variable:
 
 ```python
-MODEL = "gemini-3.7-flash"
+MODEL = "gemini-3.8-flash"
 ```
 
-### Why put the model name in a variable?
+### Why Put the Model Name in a Variable?
 
-We could write the model name inside every API request. Instead, we define it once and later write:
+We could write `"gemini-3.8-flash"` inside every API request.
+
+Instead, we define it once:
+
+```python
+MODEL = "gemini-3.8-flash"
+```
+
+and later write:
 
 ```python
 model=MODEL
 ```
 
-If Google changes its available models, we only need to update **one line**.
+If Google changes its available models, we then only need to update **one line**.
 
-At the time this tutorial was reviewed, Gemini 3.7 Flash supports image input and is available on the Gemini API Free Tier. If it is no longer available in your account, choose a current image-capable model in Google AI Studio and replace the value assigned to ```MODEL```.
+At the time this tutorial was reviewed, Gemini 3.8 Flash accepts image input and is available through the Gemini API Free Tier.
+
+If this model is no longer available in your account, choose a current image-capable Gemini model in Google AI Studio and replace the value assigned to `MODEL`.
 
 ---
 
 ## 9. Tell Python Where the Image Is
 
-Create a path pointing to the archival image:
+The path you use depends on whether you are working locally or in Google Colab.
+
+### 9.1 Local Jupyter Notebook or JupyterLab
+
+If your notebook and `archival_images` folder are arranged as shown earlier, use:
 
 ```python
 IMAGE_PATH = Path("archival_images/page_01.jpg")
@@ -347,6 +446,18 @@ start from the folder containing the notebook
 → find page_01.jpg
 ```
 
+### 9.2 Google Colab
+
+If you uploaded `page_01.jpg` using Colab's Files panel, use:
+
+```python
+IMAGE_PATH = Path("/content/page_01.jpg")
+```
+
+The `/content` folder is Colab's default working area.
+
+> **Choose the version of `IMAGE_PATH` that matches the environment you are using. Do not run both versions one after another.**
+
 Now check that Python can actually find the file:
 
 ```python
@@ -354,29 +465,46 @@ if not IMAGE_PATH.exists():
     raise FileNotFoundError(f"Could not find {IMAGE_PATH}")
 ```
 
-### What does this check do?
+### What Does This Check Do?
 
 ```python
 IMAGE_PATH.exists()
 ```
 
-asks whether the file exists at the location we gave Python.
+asks:
 
-If the cell runs without producing an error, Python found the image successfully.
+> Does this file actually exist at the location I gave Python?
+
+If the answer is no, Python stops and gives you a clear error rather than failing later during the API request.
+
+If the cell runs without producing an error, Python found your image successfully.
+
+Now display the image:
+
+```python
+image = Image.open(IMAGE_PATH)
+display(image)
+```
+
+This lets you check that you are about to transcribe the correct page.
 
 ---
 
 ## 10. Create a Function That Sends an Image to Gemini
 
-We could write the full API request every time we want a transcription. Instead, we will create a **function** called ```transcribe_image```.
+We could write the full API request every time we want a transcription.
 
-A function is a reusable block of code. We give it:
+Instead, we will create a **function** called `transcribe_image`.
+
+A function is a reusable block of code.
+
+We give the function:
 
 1. an image path;
 2. a prompt;
 3. a model.
 
-It reads the image, prepares it for the API request, sends the image and prompt to Gemini, and returns the model's text response.
+It sends the image and prompt to Gemini and gives us the model's response.
 
 Run:
 
@@ -384,19 +512,30 @@ Run:
 def transcribe_image(image_path, prompt, model=MODEL):
     image_path = Path(image_path)
 
-    with open(image_path, "rb") as f:
-        image_bytes = f.read()
+    mime_type, _ = mimetypes.guess_type(image_path.name)
 
-    image_b64 = base64.b64encode(image_bytes).decode("utf-8")
+    if mime_type not in {"image/jpeg", "image/png", "image/webp"}:
+        raise ValueError(
+            "Use a JPEG, PNG, or WebP image for this tutorial."
+        )
+
+    image_bytes = image_path.read_bytes()
+
+    image_b64 = base64.b64encode(
+        image_bytes
+    ).decode("utf-8")
 
     interaction = client.interactions.create(
         model=model,
         input=[
-            {"type": "text", "text": prompt},
+            {
+                "type": "text",
+                "text": prompt
+            },
             {
                 "type": "image",
                 "data": image_b64,
-                "mime_type": "image/jpeg"
+                "mime_type": mime_type
             }
         ]
     )
@@ -404,7 +543,7 @@ def transcribe_image(image_path, prompt, model=MODEL):
     return interaction.output_text
 ```
 
-### What is each part doing?
+### What Is Each Part Doing?
 
 The first line defines the function:
 
@@ -412,50 +551,90 @@ The first line defines the function:
 def transcribe_image(image_path, prompt, model=MODEL):
 ```
 
-The function expects an image path, a prompt, and a model.
+The function expects:
 
-This block opens the image as **binary data**:
+* `image_path` — where the image is stored;
+* `prompt` — the transcription instructions;
+* `model` — which Gemini model to use.
+
+This line makes sure the file location is represented as a Python `Path`:
 
 ```python
-with open(image_path, "rb") as f:
-    image_bytes = f.read()
+image_path = Path(image_path)
 ```
+
+Next:
+
+```python
+mime_type, _ = mimetypes.guess_type(image_path.name)
+```
+
+asks Python to identify what kind of image file we are using.
+
+For example:
 
 ```text
-rb
+page_01.jpg
 ```
 
-means **read binary**. Images are stored as bytes rather than ordinary text.
-
-The next line converts those bytes into Base64:
-
-```python
-image_b64 = base64.b64encode(image_bytes).decode("utf-8")
-```
-
-Base64 is simply a way to represent binary data in a form that can be included safely inside the API request. You do not need to memorize the conversion code.
-
-This is the actual API request:
-
-```python
-interaction = client.interactions.create(...)
-```
-
-Inside ```input``` we send two items:
+will normally be identified as:
 
 ```text
-our written prompt
+image/jpeg
+```
+
+The next check makes sure we are using a supported image type:
+
+```python
+if mime_type not in {"image/jpeg", "image/png", "image/webp"}:
+```
+
+Now Python reads the image itself:
+
+```python
+image_bytes = image_path.read_bytes()
+```
+
+A computer stores an image as binary data, or **bytes**.
+
+Before those bytes are placed inside this API request, we convert them to **Base64**:
+
+```python
+image_b64 = base64.b64encode(
+    image_bytes
+).decode("utf-8")
+```
+
+You do not need to understand the mathematics of Base64 for this tutorial. Its practical purpose here is simple:
+
+> **It converts the image data into a text-safe format that can be transmitted inside the API request.**
+
+Now we reach the actual request:
+
+```python
+interaction = client.interactions.create(
+    model=model,
+    input=[
+        {
+            "type": "text",
+            "text": prompt
+        },
+        {
+            "type": "image",
+            "data": image_b64,
+            "mime_type": mime_type
+        }
+    ]
+)
+```
+
+We are sending Gemini two things together:
+
+```text
+our written instructions
 +
-our image
+our archival image
 ```
-
-The line:
-
-```python
-"mime_type": "image/jpeg"
-```
-
-tells Gemini what kind of image we are sending.
 
 Finally:
 
@@ -463,9 +642,9 @@ Finally:
 return interaction.output_text
 ```
 
-returns the transcription text that Gemini sent back.
+takes the text returned by Gemini and gives it back to whichever part of our notebook called the function.
 
-Once this function exists, we can transcribe an image with the much simpler instruction:
+Once the function exists, we can transcribe an image with the much simpler command:
 
 ```python
 transcribe_image(IMAGE_PATH, SOME_PROMPT)
@@ -484,7 +663,15 @@ Return only the transcription.
 """
 ```
 
-We are saving the transcription instructions inside a variable called ```MINIMAL_PROMPT```. This lets us reuse exactly the same wording later.
+### What Are We Doing Here?
+
+We are saving the transcription instructions inside a variable called:
+
+```text
+MINIMAL_PROMPT
+```
+
+This allows us to reuse exactly the same wording later.
 
 Now send the image and prompt to Gemini:
 
@@ -497,7 +684,7 @@ minimal_transcription = transcribe_image(
 
 This means:
 
-> Run our ```transcribe_image``` function using ```page_01.jpg``` and the minimal prompt, then save Gemini's response in a variable called ```minimal_transcription```.
+> Run our `transcribe_image` function using the archival image and the minimal prompt, then save Gemini's response in a variable called `minimal_transcription`.
 
 Display the result:
 
@@ -544,11 +731,29 @@ Follow these rules:
 """
 ```
 
-### Why make the prompt longer?
+### Why Make the Prompt Longer?
 
 The model still has to interpret the image, but we are now making our **transcription policy** explicit.
 
-For example, ```Do not modernize spelling``` tells the model that historical spelling should be preserved, while ```If text is illegible, write [illegible]``` gives it a way to represent uncertainty rather than inventing a confident reading.
+For example:
+
+```text
+Do not modernize spelling
+```
+
+tells the model that historical spelling should be preserved.
+
+```text
+Do not silently expand abbreviations
+```
+
+tells it not to turn an abbreviated form into a full word without telling us.
+
+```text
+If text is illegible, write [illegible]
+```
+
+gives it a way to represent uncertainty rather than inventing a confident reading.
 
 Now run the same image again with the new prompt:
 
@@ -565,7 +770,11 @@ Display it:
 print(archival_transcription)
 ```
 
-The longer prompt does **not** guarantee that the transcription will be correct. Instead, it lets us investigate whether more explicit archival instructions change the model's behavior.
+The longer prompt does **not** guarantee that the transcription will be correct.
+
+Instead, it allows us to investigate an important question:
+
+> **Does giving the model more explicit archival transcription rules change the kinds of errors it makes?**
 
 ---
 
@@ -600,7 +809,7 @@ comparison_df = pd.DataFrame([
 comparison_df
 ```
 
-### What is this code doing?
+### What Is This Code Doing?
 
 ```python
 pd.DataFrame(...)
@@ -608,14 +817,29 @@ pd.DataFrame(...)
 
 creates a table.
 
-Each pair of curly brackets becomes one row. The resulting table has two columns:
+Each pair of curly brackets:
+
+```python
+{
+    "prompt_type": "minimal",
+    "transcription": minimal_transcription
+}
+```
+
+becomes one row.
+
+The resulting table has two columns:
 
 | prompt_type | transcription |
 | --- | --- |
 | minimal | Gemini's first output |
 | archival | Gemini's second output |
 
-Do **not** decide which prompt is better simply by asking which transcription looks more polished. Compare both outputs against the source image.
+Do **not** decide which prompt is better simply by asking which transcription looks more polished.
+
+Compare both outputs against the source image.
+
+A polished transcription may still be less faithful if the model has normalized, omitted, reorganized, or reconstructed the source.
 
 ---
 
@@ -668,9 +892,36 @@ evaluation_df = pd.DataFrame({
 evaluation_df
 ```
 
-The score columns are deliberately empty. **You**, not the model, fill them in after comparing each transcription against the source image.
+### What Is This Code Doing?
 
-The ```notes``` column is particularly important. A number alone cannot explain what went wrong.
+The first block creates a Python list containing the names of the evaluation categories.
+
+The second block turns that list into a table with four columns:
+
+```text
+category
+minimal_score
+archival_score
+notes
+```
+
+The score columns are deliberately empty.
+
+**You**, not the model, fill them in after comparing each transcription against the source image.
+
+The `notes` column is particularly important. A number alone cannot explain what went wrong.
+
+For example, rather than recording only:
+
+```text
+named_entities = 1
+```
+
+you might write:
+
+```text
+Correctly transcribed Bushire but misread the surname in line 4.
+```
 
 > **The rubric organizes human judgment; it does not replace human judgment.**
 
@@ -686,6 +937,8 @@ We should also record:
 * which prompt was used;
 * which model was used;
 * when the request was made.
+
+This makes it possible to trace and compare model-generated data later.
 
 First record the current time:
 
@@ -718,6 +971,8 @@ results_df = pd.DataFrame([
 results_df
 ```
 
+### What Does This Table Preserve?
+
 Each row now tells us:
 
 ```text
@@ -744,11 +999,21 @@ results_df.to_csv(
 print("Saved transcription_comparison.csv")
 ```
 
-```to_csv``` means **save this pandas table as a CSV file**.
+`to_csv` means:
 
-```index=False``` prevents pandas from adding an unnecessary numbered index column.
+> Save this pandas table as a CSV file.
 
-```encoding="utf-8-sig"``` helps preserve multilingual characters when the CSV is opened in commonly used spreadsheet software.
+```python
+index=False
+```
+
+prevents pandas from adding an unnecessary numbered index column.
+
+```python
+encoding="utf-8-sig"
+```
+
+helps preserve multilingual characters when the CSV is opened in commonly used spreadsheet software.
 
 ---
 
@@ -760,23 +1025,36 @@ One advantage of using an API is that Python can repeat the same workflow across
 
 For this teaching exercise, we will keep the example simple and use **JPG images only**.
 
-Place several images in your folder:
+For example:
 
 ```text
-archival_images/
-├── page_01.jpg
-├── page_02.jpg
-├── page_03.jpg
-└── page_04.jpg
+page_01.jpg
+page_02.jpg
+page_03.jpg
+page_04.jpg
 ```
 
-### 16.1 Ask Python to Find the Images
+### 16.1 Choose the Folder Containing the Images
+
+If you are using **Jupyter Notebook or JupyterLab locally** and your images are inside the `archival_images` folder, use:
+
+```python
+IMAGE_FOLDER = Path("archival_images")
+```
+
+If you are using **Google Colab** and uploaded the images using the Files panel, use:
+
+```python
+IMAGE_FOLDER = Path("/content")
+```
+
+> **Choose the line that matches the environment you are using. Do not run both versions one after another.**
+
+### 16.2 Ask Python to Find the Images
 
 Run:
 
 ```python
-IMAGE_FOLDER = Path("archival_images")
-
 image_files = sorted(
     IMAGE_FOLDER.glob("*.jpg")
 )
@@ -784,13 +1062,9 @@ image_files = sorted(
 print(f"Found {len(image_files)} image(s).")
 ```
 
-### What is this code doing?
+### What Is This Code Doing?
 
-```python
-IMAGE_FOLDER = Path("archival_images")
-```
-
-tells Python which folder to look inside.
+This part:
 
 ```python
 IMAGE_FOLDER.glob("*.jpg")
@@ -798,9 +1072,32 @@ IMAGE_FOLDER.glob("*.jpg")
 
 means:
 
-> Find every file in that folder whose filename ends in ```.jpg```.
+> Find every file in that folder whose filename ends in `.jpg`.
 
-The asterisk ```*``` is a wildcard meaning **any filename**.
+The asterisk:
+
+```text
+*
+```
+
+is a **wildcard**. It means **any filename**.
+
+So:
+
+```text
+*.jpg
+```
+
+matches files such as:
+
+```text
+page_01.jpg
+page_02.jpg
+letter.jpg
+scan_17.jpg
+```
+
+This part:
 
 ```python
 sorted(...)
@@ -816,13 +1113,41 @@ len(image_files)
 
 counts how many images Python found.
 
-You can inspect the list with:
+If your folder contains four JPG files, the output should look like:
+
+```text
+Found 4 image(s).
+```
+
+You can inspect the list:
 
 ```python
 image_files
 ```
 
-### 16.2 Create an Empty Place to Store the Results
+A local Jupyter user might see something like:
+
+```text
+[
+    Path('archival_images/page_01.jpg'),
+    Path('archival_images/page_02.jpg'),
+    Path('archival_images/page_03.jpg'),
+    Path('archival_images/page_04.jpg')
+]
+```
+
+A Colab user might instead see:
+
+```text
+[
+    Path('/content/page_01.jpg'),
+    Path('/content/page_02.jpg'),
+    Path('/content/page_03.jpg'),
+    Path('/content/page_04.jpg')
+]
+```
+
+### 16.3 Create an Empty Place to Store the Results
 
 Before processing the images, create an empty list:
 
@@ -830,9 +1155,18 @@ Before processing the images, create an empty list:
 batch_results = []
 ```
 
-At this point the list contains nothing. As Python processes each image, we will add one record containing the filename, prompt, model, timestamp, transcription, and fields for later human review.
+At this point, the list contains nothing.
 
-### 16.3 Loop Through the Images One at a Time
+As Python processes each image, we will add a record containing:
+
+* the filename;
+* the model;
+* the prompt;
+* the transcription;
+* the processing time;
+* fields for later human review.
+
+### 16.4 Loop Through the Images One at a Time
 
 Now run:
 
@@ -876,9 +1210,9 @@ for image_path in image_files:
     time.sleep(2)
 ```
 
-This looks longer than our earlier code, so read it as a sequence of steps rather than as one large block.
+This looks much longer than our earlier code, so read it as a sequence of steps rather than as one large block.
 
-#### Step A: Repeat the code for every image
+#### Step A: Repeat the Code for Every Image
 
 ```python
 for image_path in image_files:
@@ -886,11 +1220,11 @@ for image_path in image_files:
 
 means:
 
-> Take the first image in ```image_files```, run the indented code below it, then move to the second image, then the third, and continue until every image has been processed.
+> Take the first image in `image_files`, run the indented code below it, then move to the second image, then the third, and continue until every image has been processed.
 
 This is called a **loop**.
 
-#### Step B: Tell us which file is being processed
+#### Step B: Tell Us Which File Is Being Processed
 
 ```python
 print(f"Transcribing: {image_path.name}")
@@ -902,7 +1236,9 @@ prints something like:
 Transcribing: page_02.jpg
 ```
 
-#### Step C: Send the image to Gemini
+This is useful because API requests may take several seconds.
+
+#### Step C: Send the Image to Gemini
 
 ```python
 transcription = transcribe_image(
@@ -911,15 +1247,25 @@ transcription = transcribe_image(
 )
 ```
 
-uses the same function and same archival prompt that we tested earlier. The only thing changing each time is ```image_path```.
+uses the same function and archival prompt that we tested earlier.
 
-#### Step D: Add the successful result to our list
+The only thing changing each time is:
+
+```text
+image_path
+```
+
+#### Step D: Add the Successful Result to Our List
 
 ```python
 batch_results.append({...})
 ```
 
-means **add one new record to ```batch_results```**.
+means:
+
+> Add one new record to `batch_results`.
+
+The record contains the filename, prompt, model, timestamp, and transcription.
 
 We also create two empty fields:
 
@@ -930,25 +1276,29 @@ review_notes
 
 so a human reviewer can later record whether the transcription has been checked.
 
-#### Step E: What do ```try``` and ```except``` do?
+#### Step E: What Do `try` and `except` Do?
 
-An API request can fail because of an internet problem, rate limit, invalid image, or temporary service error.
+Sometimes an API request fails because of:
 
-```python
-try:
-```
+* an internet connection problem;
+* a temporary service error;
+* a rate limit;
+* an invalid image;
+* or another unexpected problem.
 
-means **try to process this image normally**.
+Without error handling, one failure could stop the entire loop.
 
-```python
-except Exception as e:
-```
+The `try` block says:
 
-means **if that fails, record the error instead of stopping the entire batch**.
+> Try to process this image normally.
+
+The `except` block says:
+
+> If that fails, record the error and continue to the next image.
 
 That way, one problematic page does not prevent the remaining pages from being processed.
 
-#### Step F: Pause briefly
+#### Step F: Pause Briefly
 
 ```python
 time.sleep(2)
@@ -956,9 +1306,11 @@ time.sleep(2)
 
 asks Python to wait two seconds before sending the next request.
 
-This is a simple precaution for a small teaching exercise. It is **not** a universal rate-limit rule. For larger projects, check the current limits for your model and account.
+This is a simple precaution for a small teaching exercise. It is **not** a universal rate-limit rule.
 
-### 16.4 Turn the Results into a Table
+For larger projects, check the current Gemini API limits for your model and account.
+
+### 16.5 Turn the Results into a Table
 
 After the loop finishes:
 
@@ -968,9 +1320,11 @@ batch_df = pd.DataFrame(batch_results)
 batch_df
 ```
 
-This converts our list of results into a pandas table. Each image becomes one row.
+This converts our list of results into a pandas table.
 
-### 16.5 Save the Batch Transcriptions
+Each image becomes one row.
+
+### 16.6 Save the Batch Transcriptions
 
 Run:
 
@@ -984,7 +1338,9 @@ batch_df.to_csv(
 print("Saved archival_transcriptions.csv")
 ```
 
-You now have a CSV containing the automatically generated transcriptions and the information needed to trace how each one was produced.
+You now have a CSV containing the automatically generated transcriptions and information about how each one was produced.
+
+The empty `review_status` and `review_notes` fields allow a human reviewer to record what has been checked.
 
 ---
 
@@ -994,9 +1350,27 @@ Processing 500 pages is not simply the same activity as transcribing one page mo
 
 Automation can make model behavior **systematic** across an entire corpus.
 
-Suppose a model routinely drops marginalia, normalizes historical spelling, mishandles particular names, changes reading order, or reconstructs uncertain text confidently. If we process hundreds of pages automatically, those tendencies can become properties of the dataset itself.
+Suppose a model routinely:
 
-This matters because transcriptions may later be used for keyword search, named-entity recognition, topic modeling, embeddings, retrieval-augmented generation, quantitative text analysis, or structured dataset creation.
+* drops marginalia;
+* normalizes historical spelling;
+* mishandles particular names;
+* changes reading order;
+* or reconstructs uncertain text confidently.
+
+If we process hundreds of pages automatically, those tendencies can become properties of the dataset itself.
+
+This matters because transcriptions may later be used for:
+
+* keyword search;
+* named-entity recognition;
+* topic modeling;
+* embeddings;
+* retrieval-augmented generation;
+* quantitative text analysis;
+* or structured dataset creation.
+
+An error introduced during transcription can therefore influence later searches or interpretations.
 
 Before scaling an AI transcription workflow:
 
@@ -1009,7 +1383,9 @@ Before scaling an AI transcription workflow:
 
 ## 18. Adapting the Workflow to Other Multimodal Models
 
-The Python code in this tutorial is specific to Gemini. The **research workflow is not**.
+The Python code in this tutorial is specific to Gemini.
+
+The **research workflow is not**.
 
 With another multimodal AI system, you would still need to:
 
@@ -1021,9 +1397,13 @@ With another multimodal AI system, you would still need to:
 6. save information about how the output was produced;
 7. evaluate the transcription against the source.
 
-The exact SDK functions will differ.
+The exact SDK and API syntax will differ.
+
+This distinction is important:
 
 > **The provider-specific code is replaceable; the decisions about transcription fidelity, provenance, uncertainty, and evaluation are not.**
+
+When comparing different models, keep the source images, prompts, and evaluation criteria as consistent as possible.
 
 ---
 
@@ -1040,7 +1420,11 @@ You can extend this workflow by:
 * linking place names to a gazetteer;
 * building search or retrieval workflows over a transcribed corpus.
 
-A natural next tutorial is **From AI Transcription to Structured Historical Data**.
+A natural next tutorial is:
+
+**From AI Transcription to Structured Historical Data**
+
+In that workflow, the reviewed transcription—not the archival image—becomes the input for extracting people, places, dates, offices, and other historical information.
 
 ---
 
@@ -1048,12 +1432,12 @@ A natural next tutorial is **From AI Transcription to Structured Historical Data
 
 ### Gemini API
 
-* [Gemini API documentation](https://ai.google.dev/gemini-api/docs){:target="_blank" rel="noopener"}
-* [Getting started with the Gemini API](https://ai.google.dev/gemini-api/docs/get-started){:target="_blank" rel="noopener"}
-* [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding){:target="_blank" rel="noopener"}
-* [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key){:target="_blank" rel="noopener"}
-* [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing){:target="_blank" rel="noopener"}
-* [Gemini API rate limits](https://ai.google.dev/gemini-api/docs/rate-limits){:target="_blank" rel="noopener"}
+* [Gemini API documentation](https://ai.google.dev/gemini-api/docs)
+* [Getting started with the Gemini API](https://ai.google.dev/gemini-api/docs/get-started)
+* [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding)
+* [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
+* [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
+* [Gemini API rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)
 
 ### Related Toolkit Tutorials
 
