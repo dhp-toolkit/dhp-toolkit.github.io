@@ -2,6 +2,7 @@
 title: "Getting Started with Jupyter Notebook"
 categories:
   - Beginner
+tutorial_order: 1
 tags:
   - Jupyter
   - Python
