@@ -2,6 +2,7 @@
 title: "Tidy Archives: Using the Command Line to Organize Your Research Files"
 categories:
   - Beginner
+tutorial_order: 2
 tags:
   - Post Formats
   - notice
