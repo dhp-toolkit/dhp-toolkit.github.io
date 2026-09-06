@@ -2,6 +2,7 @@
 title: "GitHub for Historians: Building and Publishing with GitHub Pages"
 categories:
   - Beginner
+tutorial_order: 3
 tags:
   - link
   - Post Formats
