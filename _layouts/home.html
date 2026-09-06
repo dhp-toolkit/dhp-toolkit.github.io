@@ -6,17 +6,13 @@ layout: archive
 
 <!-- <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3> -->
 <h1 class="archive__subtitle">List of Tutorials</h1>
+<p><strong>Suggested learning path:</strong> If you are new to digital history, begin with the foundational tutorials on Jupyter, the command line, and GitHub before moving on to text processing, geographic data, natural language processing, and AI-assisted archival methods.</p>
 
-
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
+{% assign posts = site.posts | sort: "tutorial_order" %}
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
   {% include documents-collection.html entries=posts type=entries_layout %}
 </div>
 
-{% include paginator.html %}
+
