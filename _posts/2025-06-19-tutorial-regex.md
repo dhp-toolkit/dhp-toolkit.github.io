@@ -2,6 +2,7 @@
 title: "Text Preprocessing with Regex in Python"
 categories:
   - Intermediate
+tutorial_order: 4
 tags:
   - chat
   - Post Formats
