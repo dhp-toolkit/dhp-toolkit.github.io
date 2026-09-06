@@ -2,6 +2,7 @@
 title: "Trucial Coast Towns: Building a Historical Gazetteer Dataset with GeoNames"
 categories:
   - Intermediate
+tutorial_order: 5
 tags:
   - GeoNames
   - APIs
@@ -67,6 +68,8 @@ You can follow this tutorial by creating a new Jupyter Notebook and copying the 
 You will also need the sample dataset:
 
 [Download the sample Trucial Coast towns dataset](/assets/trucial_towns.zip)
+
+> **Dataset acknowledgement:** The sample dataset used in this tutorial is drawn from the [Open Gulf project](https://github.com/opengulf), an open digital history initiative focused on the Gulf region.
 
 After downloading the ZIP file, extract it and place the file ```trucial_towns.csv``` in the same project folder as your Jupyter Notebook.
 
