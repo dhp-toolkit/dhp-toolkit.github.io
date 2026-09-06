@@ -2,6 +2,7 @@
 title: "Transcribing Archival Images with Multimodal AI: A Gemini API Workflow"
 categories:
   - Intermediate
+tutorial_order: 6
 tags:
   - Generative AI
   - Gemini API
