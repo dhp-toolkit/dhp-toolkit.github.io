@@ -60,7 +60,7 @@ plugins:
 author:
   name   : "Digital History Pedagogy Toolkit"
   avatar: "/assets/images/DPTavatar.png"
-  bio    : "Methods, Modules, and Code for the Middle East."
+  bio    : "Methods, Modules, and Code for  Middle Eastern History."
   links:
   - label: "Contact"
     icon:  "fas fa-fw fa-envelope"
