@@ -2,7 +2,7 @@
 title: "Named Entity Recognition With SpaCy"
 categories:
   - Advanced
-tutorial_order: 7
+tutorial_order: 8
 tags:
   - Post Formats
   - readability
