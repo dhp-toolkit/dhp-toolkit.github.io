@@ -1,5 +1,6 @@
 ---
 title: "From AI Transcription to Structured Historical Data: A Gemini API Workflow"
+tutorial_order: 7
 categories:
   - Intermediate
 tags:
