@@ -3,6 +3,8 @@ main:
   #   url: /posts/
   - title: "Tutorials"
     url: /tutorials/
+   - title: "Digital Methods Basics"
+    url: /digital-methods-basics/
   # - title: "Tags"
   #   url: /tags/
   # - title: "About"
