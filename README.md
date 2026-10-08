@@ -1,27 +1,61 @@
-# Minimal Mistakes remote theme starter
+# Digital History Pedagogy Toolkit
 
-Click [**Use this template**](https://github.com/mmistakes/mm-github-pages-starter/generate) button above for the quickest method of getting started with the [Minimal Mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes).
+**Methods, Modules, and Code for Middle Eastern History**
 
-Contains basic configuration to get you a site with:
+The Digital History Pedagogy Toolkit is an open-access collection of tutorials and practical workflows for teaching and learning digital history.
 
-- Sample posts.
-- Sample top navigation.
-- Sample author sidebar with social links.
-- Sample footer links.
-- Paginated home page.
-- Archive pages for posts grouped by year, category, and tag.
-- Sample about page.
-- Sample 404 page.
-- Site wide search.
+Designed for students and instructors without extensive technical backgrounds, the Toolkit connects historical questions with accessible digital methods and provides step-by-step resources that can be adapted for research and classroom use.
 
-Replace sample content with your own and [configure as necessary](https://mmistakes.github.io/minimal-mistakes/docs/configuration/).
+## What You Will Find Here
 
----
+The Toolkit includes materials on:
 
-## Troubleshooting
+- working with Jupyter Notebooks;
+- organizing research files with the command line;
+- using GitHub and GitHub Pages;
+- preparing and processing historical texts;
+- working with geographic and gazetteer data;
+- named entity recognition and natural language processing;
+- AI-assisted archival transcription;
+- converting historical transcriptions into structured data;
+- evaluating and critically using emerging digital and AI methods.
 
-If you have a question about using Jekyll, start a discussion on the [Jekyll Forum](https://talk.jekyllrb.com/) or [StackOverflow](https://stackoverflow.com/questions/tagged/jekyll). Other resources:
+Where possible, tutorials use examples drawn from Middle Eastern history.
 
-- [Ruby 101](https://jekyllrb.com/docs/ruby-101/)
-- [Setting up a Jekyll site with GitHub Pages](https://jekyllrb.com/docs/github-pages/)
-- [Configuring GitHub Metadata](https://github.com/jekyll/github-metadata/blob/master/docs/configuration.md#configuration) to work properly when developing locally and avoid `No GitHub API authentication could be found. Some fields may be missing or have incorrect data.` warnings.
+## Digital Methods Basics
+
+The Toolkit also includes a growing reference guide explaining recurring concepts such as:
+
+- CSV and JSON;
+- Jupyter Notebooks;
+- APIs;
+- Python packages;
+- file paths;
+- Markdown;
+- Git and GitHub.
+
+These explanations are intended to help students follow the tutorials without assuming a prior background in computer science.
+
+## Using the Toolkit
+
+The tutorials are designed to be used individually or as part of a broader learning sequence.
+
+Students who are new to digital history may want to begin with the foundational tutorials on Jupyter, the command line, and GitHub before moving to text processing, geographic data, natural language processing, and AI-assisted archival methods.
+
+Many tutorials include downloadable sample data, code, and companion Jupyter Notebooks that can be opened locally or in Google Colab.
+
+## About This Repository
+
+This repository contains the source files for the Digital History Pedagogy Toolkit website, including:
+
+- tutorial Markdown files;
+- Jupyter Notebooks;
+- sample datasets;
+- teaching materials;
+- images and other supporting files.
+
+The site is built with GitHub Pages and the Minimal Mistakes Jekyll theme.
+
+## Contact
+
+Questions, suggestions, and feedback about the Toolkit are welcome. Contact information is available on the published Toolkit website.
